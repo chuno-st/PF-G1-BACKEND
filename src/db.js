@@ -7,15 +7,15 @@ const {
 } = process.env;
 
 
-const sequelize = new Sequelize(DATABASE_URL/*`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/productos`*/, {
+const sequelize = new Sequelize(`postgres://postgres:willy447@localhost:5432/PgPruebas`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  dialectOptions: {
+  /* dialectOptions: {
     ssl: {
       require: true,
       rejectUnauthorized: false
     }
-  },
+  }, */
 });
 
 const basename = path.basename(__filename);
@@ -39,11 +39,12 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Item } = sequelize.models;
+const { Item, Category, Material, Product, SubCategory } = sequelize.models;
 
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+
 //Item.belongsToMany(Materials, { through: 'ItemMaterial' }); EJEMPLO
 
 module.exports = {
