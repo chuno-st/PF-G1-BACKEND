@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
       },
 
       /* ficha tenica */
-      data_sheet: {
+      description: {
         type: DataTypes.TEXT,
         allowNull: true,
         defaultValue: null
@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
 
       },
 
-      images: {
+      image: {
         type: DataTypes.TEXT,
         allowNull: true,
         defaultValue:null
@@ -56,5 +56,5 @@ module.exports = (sequelize) => {
       
 
 
-    }, { timestamps: false });
+    }, { timestamps: true });
   };
