@@ -53,7 +53,7 @@ const { Category, Material, Product, SubCategory, User } = sequelize.models;
 //Material.belongsToMany(Product, { through: 'ProductMaterial' });
 //Item.belongsToMany(Materials, { through: 'ItemMaterial' }); EJEMPLO
 
-Category.hasMany( Product, {
+/*Category.hasMany( Product, {
   foreignKey: 'category_id',
   as: 'products'
 });
@@ -61,6 +61,7 @@ Category.hasMany( Product, {
 Product.belongsTo( Category, {
   foreignKey: 'category_id'
 });
+*/
 
 module.exports = {
     ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
