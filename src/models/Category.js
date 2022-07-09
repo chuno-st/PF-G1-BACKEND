@@ -11,9 +11,5 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      category_id2: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      }
     }, { timestamps: false });
   };
