@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const productRoutes = require('./productRoutes');
+// Importar todos los routers;
 
 //importar todas las rutas
 const item = require('./item.js');
