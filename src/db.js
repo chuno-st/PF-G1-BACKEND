@@ -79,8 +79,8 @@ Product.belongsTo( SubCategory, {
   foreignKey: 'subCategory_id'
 });
 //-------------------
-Product.belongsToMany(Color, {through:"product_color"})
-Color.belongsToMany(Product, {through:"product_color"})
+Material.belongsToMany(Color, {through:"material_color", timestamps: false })
+Color.belongsToMany(Material, {through:"material_color", timestamps: false })
 
 
 
