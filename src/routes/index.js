@@ -3,14 +3,14 @@ const productRoutes = require('./productRoutes');
 // Importar todos los routers;
 
 //importar todas las rutas
-const item = require('./item.js');
+const material = require('./Material.js');
 //
 
 const router = Router();
 
 
 //setear los router.use para cada ruta
-router.use('/item', item);
+router.use('/material', material);
 //
 
 
