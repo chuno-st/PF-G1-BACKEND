@@ -4,8 +4,10 @@ module.exports = (sequelize) => {
     // defino el modelo
     sequelize.define('User', {
       user_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
       },
 
       username: {

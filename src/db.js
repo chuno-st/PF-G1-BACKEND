@@ -53,15 +53,32 @@ const { Category, Material, Product, SubCategory, User } = sequelize.models;
 //Material.belongsToMany(Product, { through: 'ProductMaterial' });
 //Item.belongsToMany(Materials, { through: 'ItemMaterial' }); EJEMPLO
 
-/*Category.hasMany( Product, {
-  foreignKey: 'category_id',
-  as: 'products'
+Category.hasMany( Product, {
+  foreignKey: 'category_id'
 });
 
 Product.belongsTo( Category, {
   foreignKey: 'category_id'
 });
-*/
+
+//subcategory_id	material_id
+
+Material.hasMany( Product, {
+  foreignKey: 'material_id'
+});
+
+Product.belongsTo( Material, {
+  foreignKey: 'material_id'
+});
+//-------------------
+SubCategory.hasMany( Product, {
+  foreignKey: 'subCategory_id'
+});
+
+Product.belongsTo( SubCategory, {
+  foreignKey: 'subCategory_id'
+});
+
 
 module.exports = {
     ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
