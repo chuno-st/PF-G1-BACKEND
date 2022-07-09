@@ -3,13 +3,15 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER,
-  DB_PASSWORD,
-  DB_HOST
+  PGUSER,
+  PGPORT,
+  PGHOST,
+  PGDATABASE,
+  PGPASSWORD,
 } = process.env;
 
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/PgPruebas`, {
+const sequelize = new Sequelize(`postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   /* dialectOptions: {
@@ -41,7 +43,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Item, Category, Material, Product, SubCategory } = sequelize.models;
+const { Category, Material, Product, SubCategory } = sequelize.models;
 
 
 // Aca vendrian las relaciones
