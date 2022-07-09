@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const productRoutes = require('./productRoutes');
+//const productRoutes = require('./productRoutes');
 // Importar todos los routers;
 
 //importar todas las rutas
