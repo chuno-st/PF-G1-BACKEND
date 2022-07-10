@@ -1,19 +1,9 @@
-<<<<<<< HEAD
-// const { Router } = require('express');
-// const { getById, createProduct, getProducts} = require('../controllers/productControllers')
-
-// const router = Router();
-// router.use('/product/:id', getById);
-// router.use('/product', createProduct);
-// router.use('/product', getProducts);
-=======
 const { Router } = require('express');
-//const { getById, createProduct, getProducts} = require('../controllers/productControllers')
+const { getById, createProduct, getProductsOrder } = require('../controllers/productControllers')
 
 const router = Router();
-//router.use('/product/:id', getById);
-//router.use('/product', createProduct);
-//router.use('/product', getProducts);
->>>>>>> 3acf4acbbeca6d226eb3058361947dac1cfab93b
+router.use('/:id', getById);
+router.use('/', createProduct);
+router.use('/', getProductsOrder);
 
-// module.exports = router;
+module.exports = router;
