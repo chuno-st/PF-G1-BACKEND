@@ -23,14 +23,7 @@ const getByCategory = async (req, res) => {
     const { category, subcategory } = req.body
 
     try {
-        if (!subcategory) {
-            const productsByCategory = await Product.findAll({
-                where: {
-                    category_id: category
-                }
-            });
-            res.json(productsByCategory);
-        } else {
+        if (category && subcategory) {
             const productsByCategory = await Product.findAll({
                 where: {
                     category_id: category,
@@ -38,6 +31,18 @@ const getByCategory = async (req, res) => {
                 }
             });
             res.json(productsByCategory);
+
+        } else if(category) {
+            const productsByCategory = await Product.findAll({
+                where: {
+                    category_id: category
+                }
+        });
+            res.json(productsByCategory);
+        }
+        else{
+            const products = await Product.findAll()
+            res.json(products)
         }
 
     } catch (error) {
