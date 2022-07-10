@@ -19,6 +19,32 @@ const createProduct = (req, res) => {
     }
 }
 
+const getByCategory = async (req, res) => {
+    const { category, subcategory } = req.body
+
+    try {
+        if (!subcategory) {
+            const productsByCategory = await Product.findAll({
+                where: {
+                    category_id: category
+                }
+            });
+            res.json(productsByCategory);
+        } else {
+            const productsByCategory = await Product.findAll({
+                where: {
+                    category_id: category,
+                    subCategory_id: subcategory
+                }
+            });
+            res.json(productsByCategory);
+        }
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 const getProductsOrder = async (req, res) => {
     const { order, orderBy } = req.body
 
@@ -53,33 +79,10 @@ const getProductsOrder = async (req, res) => {
     }
 }
 
-const getByCategory = async (req, res) => {
-    try {
-        const { category } = req.body
 
-        const productsByCategory = await Product.findAll({
-            include: {
-                model: Category,
-                required: true
-            }
-        });
-        // const productsByCategory = await Product.findAll({
-        //     include: [
-        //         {
-        //             model: Category,
-        //             attributes: ['name'],
-        //             through: {
-        //                 attributes: []
-        //             }
-        //         }
-        //     ]
-        // });
-    } catch (error) {
-        return res.status(500).json({ message: error.message })
-    }
-}
 module.exports = {
     createProduct,
     getById,
-    getProductsOrder
+    getProductsOrder,
+    getByCategory
 }
