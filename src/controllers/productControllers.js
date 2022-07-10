@@ -1,4 +1,4 @@
-const { Product } = require ('../db'); 
+const { Product, Category } = require ('../db'); 
 
 const getById = async (req,res) =>{
 
@@ -32,7 +32,7 @@ const getProductsOrder = async (req,res)=>{
                     res.json(productsOrderByPrice)
                 }
                 break;
-
+                
             case "name":
                 if(order === "ASC" || order === "DESC"){
                     const productsOrderByABC = await Product.findAll({
@@ -52,7 +52,21 @@ const getProductsOrder = async (req,res)=>{
             {
             return res.status(500).json({message: error.message})
             }
+}
+
+const getByCategory = (req,res) =>{
+    try {
+        const {categori} = req.body
+        const productsByCategory = Product.findAll({
+            include: {
+                model: Category,
+                required: true
+              }
+        })
+    } catch (error) {
+
     }
+}
 module.exports = {
     createProduct,
     getById,
