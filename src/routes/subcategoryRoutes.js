@@ -1,7 +1,9 @@
 const { Router } = require('express');
-const { getSubCategoryFromDB } = require('../controllers/materialControllers')
+const { getSubCategories } = require('../controllers/subcategoryControllers')
 
 const router = Router();
-router.use('/subcategory', getSubCategoryFromDB);
+
+router.get('/', getSubCategories);
+
 
 module.exports = router;

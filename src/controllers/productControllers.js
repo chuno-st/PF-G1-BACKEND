@@ -1,8 +1,7 @@
-const { Product, Category } = require('../db');
+const { Product } = require('../db');
 const {Op} = require('sequelize')
 
 const getById = async (req, res) => {
-
     try {
         const { id } = req.params
         const producto = await Product.findByPk(id)
@@ -13,18 +12,19 @@ const getById = async (req, res) => {
 }
 
 const getProduct = async (req, res) => {
-    const {name} = req.query
+    const {name, limite, desde} = req.query
 
     const products = await Product.findAll()
     try {
         if (name) {
-            const productName = name.toLowerCase()
             const productByName = await Product.findAll({
                 where: {
                     name: {
                     [Op.iLike]: `%${name}%`,
                     }
-                }
+                },
+                offset: desde,
+                limit: limite 
             })
             productByName ?
                 res.status(200).json(productByName) :
@@ -47,7 +47,7 @@ const createProduct = (req, res) => {
 }
 
 const getByCategory = async (req, res) => {
-    const { category, subcategory } = req.body
+    const { category, subcategory, desde, limite } = req.body
 
     try {
         if(category && subcategory){
@@ -55,7 +55,9 @@ const getByCategory = async (req, res) => {
                 where: {
                     category_id: category,
                     subCategory_id: subcategory
-                }
+                },
+                offset: desde,
+                limit: limite 
             });
             res.json(productsByCategory);
 
@@ -63,12 +65,17 @@ const getByCategory = async (req, res) => {
             const productsByCategory = await Product.findAll({
                 where: {
                     category_id: category
-                }
+                },
+                offset: desde,
+                limit: limite 
         });
             res.json(productsByCategory);
         }
         else{
-            const products = await Product.findAll()
+            const products = await Product.findAll({
+                offset: desde,
+                limit: limite 
+            })
             res.json(products)
         }
 
@@ -78,13 +85,15 @@ const getByCategory = async (req, res) => {
 }
 
 const getProductsOrder = async (req, res) => {
-    const { order, orderBy } = req.body
+    const { order, orderBy, desde, limite  } = req.body
     try {
         switch (orderBy) {
             case "price":
                 if (order === "ASC" || order === "DESC") {
                     const productsOrderByPrice = await Product.findAll({
-                        order: [[orderBy, order]]
+                        order: [[orderBy, order]],
+                        offset: desde,
+                        limit: limite 
                     })
                     res.json(productsOrderByPrice)
                 }
@@ -93,7 +102,9 @@ const getProductsOrder = async (req, res) => {
             case "name":
                 if (order === "ASC" || order === "DESC") {
                     const productsOrderByABC = await Product.findAll({
-                        order: [[orderBy, order]]
+                        order: [[orderBy, order]],
+                        offset: desde,
+                        limit: limite 
                     })
                     res.json(productsOrderByABC)
                 }
@@ -102,7 +113,10 @@ const getProductsOrder = async (req, res) => {
                 
             default:
                     
-                const products = await Product.findAll()
+                const products = await Product.findAll({
+                    offset: desde,
+                    limit: limite 
+                })
                 res.json(products)
                 break;
         }
@@ -112,11 +126,21 @@ const getProductsOrder = async (req, res) => {
     }
 }
 
-
+//Unicamente para PROBAR
+const getPagination = async (req, res) => {
+    const {desde, limite} = req.body
+try {
+    const paginado = await Product.findAll({ offset: desde, limit: limite });
+    res.json(paginado)
+} catch (error) {
+    return res.status(500).json({ message: error.message })
+}
+}
 module.exports = {
     createProduct,
     getById,
     getProductsOrder,
     getByCategory,
-    getProduct
+    getProduct,
+    getPagination
 }

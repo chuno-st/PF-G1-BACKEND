@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const productRoutes = require('./productRoutes');
+const categoryRoutes = require('./categoryRoutes')
+const subcategoryRoutes = require('./subcategoryRoutes');
 // const materialRoutes = require('./materialRoutes');
-// const subcategoryRoutes = require('./subcategoryRoutes');
-// const categoryRoutes = require('./categoryRoutes')
 
 // Importar todos los routers;
 
@@ -13,9 +13,9 @@ const productRoutes = require('./productRoutes');
 const router = Router();
 
 router.use('/product', productRoutes)
+router.use('/category', categoryRoutes)
+router.use('/subcategory', subcategoryRoutes)
 // router.use('/', materialRoutes)
-// router.use('/', subcategoryRoutes)
-// router.use('/', categoryRoutes)
 
 
 //setear los router.use para cada ruta
