@@ -3,7 +3,7 @@ const {Op} = require('sequelize')
 
 const getById = async (req, res) => {
     try {
-        const { id } = req.params
+        const { id } = req.query
         const producto = await Product.findByPk(id)
         res.json(producto)
     } catch (error) {
@@ -31,7 +31,11 @@ const getProduct = async (req, res) => {
                 res.status(404).json({message: "Recipe doesn't exist"})
         }
         else{
-            res.status(200).json(products)
+            const allProducts = await Product.findAll({
+                offset: desde,
+                limit: limite 
+            })
+            res.status(200).json(allProducts)
         }
     } catch (error) {
         return res.status(500).json({ message: error.message })
@@ -47,7 +51,7 @@ const createProduct = (req, res) => {
 }
 
 const getByCategory = async (req, res) => {
-    const { category, subcategory, desde, limite } = req.body
+    const { category, subcategory, desde, limite } = req.query
 
     try {
         if(category && subcategory){
@@ -85,7 +89,7 @@ const getByCategory = async (req, res) => {
 }
 
 const getProductsOrder = async (req, res) => {
-    const { order, orderBy, desde, limite  } = req.body
+    const { order, orderBy, desde, limite  } = req.query
     try {
         switch (orderBy) {
             case "price":
@@ -128,7 +132,7 @@ const getProductsOrder = async (req, res) => {
 
 //Unicamente para PROBAR
 const getPagination = async (req, res) => {
-    const {desde, limite} = req.body
+    const {desde, limite} = req.query
 try {
     const paginado = await Product.findAll({ offset: desde, limit: limite });
     res.json(paginado)
@@ -136,6 +140,7 @@ try {
     return res.status(500).json({ message: error.message })
 }
 }
+
 module.exports = {
     createProduct,
     getById,
