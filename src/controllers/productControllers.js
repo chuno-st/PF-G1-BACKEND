@@ -1,4 +1,5 @@
 const { Product, Category } = require('../db');
+const {Op} = require('sequelize')
 
 const getById = async (req, res) => {
 
@@ -6,6 +7,32 @@ const getById = async (req, res) => {
         const { id } = req.params
         const producto = await Product.findByPk(id)
         res.json(producto)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+const getProduct = async (req, res) => {
+    const {name} = req.query
+
+    const products = await Product.findAll()
+    try {
+        if (name) {
+            const productName = name.toLowerCase()
+            const productByName = await Product.findAll({
+                where: {
+                    name: {
+                    [Op.iLike]: `%${name}%`,
+                    }
+                }
+            })
+            productByName ?
+                res.status(200).json(productByName) :
+                res.status(404).json({message: "Recipe doesn't exist"})
+        }
+        else{
+            res.status(200).json(products)
+        }
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -23,7 +50,7 @@ const getByCategory = async (req, res) => {
     const { category, subcategory } = req.body
 
     try {
-        if (category && subcategory) {
+        if(category && subcategory){
             const productsByCategory = await Product.findAll({
                 where: {
                     category_id: category,
@@ -32,7 +59,7 @@ const getByCategory = async (req, res) => {
             });
             res.json(productsByCategory);
 
-        } else if(category) {
+        }else if(category){
             const productsByCategory = await Product.findAll({
                 where: {
                     category_id: category
@@ -52,7 +79,6 @@ const getByCategory = async (req, res) => {
 
 const getProductsOrder = async (req, res) => {
     const { order, orderBy } = req.body
-
     try {
         switch (orderBy) {
             case "price":
@@ -72,8 +98,10 @@ const getProductsOrder = async (req, res) => {
                     res.json(productsOrderByABC)
                 }
                 break;
-
+                
+                
             default:
+                    
                 const products = await Product.findAll()
                 res.json(products)
                 break;
@@ -89,5 +117,6 @@ module.exports = {
     createProduct,
     getById,
     getProductsOrder,
-    getByCategory
+    getByCategory,
+    getProduct
 }
