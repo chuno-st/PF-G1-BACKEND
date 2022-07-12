@@ -9,7 +9,7 @@ luego para poder manipular una base de datos local, agregar archivo .env a nivel
 Completar datos con datos pasadon en "#BACKEND INFO" de discord
 Completar datos .ENV con DB_USER, DB_HOST, DB_PASSWORD (esta carpeta generarla a nivel de gitignore)
 
-
+Estoy en remote
 
 TRAE TODOS LOS PRODUCTOS
 http://localhost:3001/product 
