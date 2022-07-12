@@ -3,7 +3,7 @@ const {Op} = require('sequelize')
 
 const getById = async (req, res) => {
     try {
-        const { id } = req.query
+        const { id } = req.params
         const producto = await Product.findByPk(id)
         res.json(producto)
     } catch (error) {
