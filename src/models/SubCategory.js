@@ -2,16 +2,14 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('item', {
+    sequelize.define('SubCategory', {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      /*
-      price: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      subCategory_id: {
+        type: DataTypes.INTEGER,
+
       }
-      */
     }, { timestamps: false });
   };
