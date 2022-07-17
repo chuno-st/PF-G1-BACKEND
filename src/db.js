@@ -53,13 +53,7 @@ const { Category, Material, Product, SubCategory, User, Color , Role} = sequeliz
 //Material.belongsToMany(Product, { through: 'ProductMaterial' });
 //Item.belongsToMany(Materials, { through: 'ItemMaterial' }); EJEMPLO
 
-Role.hasMany( User, {
-  foreignKey: 'user_id'
-});
 
-User.belongsTo( Role, {
-  foreignKey: 'user_id'
-});
 
 Category.hasMany( Product, {
   foreignKey: 'category_id'
