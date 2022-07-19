@@ -1,38 +1,38 @@
 const { User } = require('../db')
 
-const addUser = async (req, res)=>{
-    const {id, userName,email, isAdmin} = req.body
-    isAdmin = true
+const addUser = async (req, res) => {
+    const { id, userName, email } = req.body
     try {
         const newUser = await User.findOrCreate({
-            where:{
+            where: {
                 id,
                 userName,
-                email,
-                isAdmin
-            }})
+                email
+            }
+        })
         res.json(newUser)
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({ message: error.message })
+        console.log(`id ${id}, name ${userName}, email ${email}`)
     }
 }
 
-const checkRole = async (req, res)=>{
-    const {id} = req.query
+const checkRole = async (req, res) => {
+    const { id } = req.query
     try {
-        if (id) {
-            const newUser = await User.findByPk({
-                id,
-                atributtes
-            })
-            } 
-            if(newUser){
-                res.send(true)
-            }else {
-                res.send(false)
-            }
+        const adminUser = await User.findOne({
+            attributes: ['isAdmin'],
+            where: {
+                id: id,
+            },
+        })
+        if(adminUser.isAdmin === null){
+            res.json({ message: "Not found!"})
+        } else {
+            res.json(adminUser.isAdmin)
+        }
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({ message: error.message })
     }
 }
 module.exports = {
