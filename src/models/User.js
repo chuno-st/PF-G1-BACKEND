@@ -18,12 +18,8 @@ module.exports = (sequelize) => {
       },
       isAdmin: {
         type: DataTypes.BOOLEAN,
-        // defaultValue: false,
+        defaultValue: false,
         allowNull: false
-      }
-
-
-
-      
+      }      
     }, { timestamps: false });
   };

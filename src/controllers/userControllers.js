@@ -7,13 +7,12 @@ const addUser = async (req, res) => {
             where: {
                 id,
                 userName,
-                email
+                email,
             }
         })
         res.json(newUser)
     } catch (error) {
         res.status(500).json({ message: error.message })
-        console.log(`id ${id}, name ${userName}, email ${email}`)
     }
 }
 
