@@ -9,27 +9,26 @@ luego para poder manipular una base de datos local, agregar archivo .env a nivel
 Completar datos con datos pasadon en "#BACKEND INFO" de discord
 Completar datos .ENV con DB_USER, DB_HOST, DB_PASSWORD (esta carpeta generarla a nivel de gitignore)
 
-
-
 TRAE TODOS LOS PRODUCTOS
-http://localhost:3001/product 
+${URL}product
 
-
-Si hay parametros trae los que contengan ese nombre, sino trae a todos. 
-http://localhost:3001/product?name=${str}
-
+Si hay parametros trae los que contengan ese nombre, sino trae a todos.
+${URL}product?name=${str}
 
 Trae producto por ID, sino trae todo
-http://localhost:3001/product/{id}
-
+${URL}product/{id}
 
 filtra por category, subcategory y paginado, si faltan parametros devuelve todo
-http://localhost:3001/product/category?category=${int}&subcategory=${int}&limite=${int}&desde=${int}
-
+${URL}product/category?category=${int}&subcategory=${int}&limite=${int}&desde=${int}
 
 filtra por orderBy(name o price), order(ASC o DESC) y paginado, si faltan parametros devuelve todo
-http://localhost:3001/product/order?orderBy=${str}&order=${str}&limite=${int}&desde=${int}
-
+${URL}product/order?orderBy=${str}&order=${str}&limite=${int}&desde=${int}
 
 Trae todas las categorias
-http://localhost:3001/category
+${URL}category
+
+Traer productos por rango de precio
+${URL}product/rangeprice?min=${int}&max=${int}
+
+Traer productos por material NOMBRE
+${URL}product/material?material=${str}
