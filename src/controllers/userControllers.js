@@ -1,18 +1,19 @@
 const { User } = require('../db')
 
 const addUser = async (req, res)=>{
-    const user = req.body
-    
+    const {id, name, email} = req.body
+    console.log(`id ${id}, name ${name}, email ${email}`)
     try {
         const newUser = await User.findOrCreate({
             where:{
-                id: user.id,
-                userName: user.userName,
-                email: user.email
+                id,
+                userName: name,
+                email
             }})
         res.json(newUser)
     } catch (error) {
         res.status(500).json({message: error.message})
+        console.log(`id ${id}, name ${name}, email ${email}`)
     }
 }
 
