@@ -4,8 +4,15 @@ const routes = require('./routes/index.js')
 const bodyParser = require('body-parser');
 require('./db.js');
 
+//const { messagesRouter } = require("./messages/messages.router");
+const serverRouter = express.Router();
+
 //server.use(bodyParser.json({ limit: '50mb' }));//middelware
 //ruteamos que se ejecute server luego de solicitudes a "/"
+
+
+server.use("/api", serverRouter);
+
 
 server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -18,6 +25,11 @@ server.use((req, res, next) => {
     next();
   });
 server.use('/', routes);
+
+server.use(function (err, req, res, next) {
+  console.log(err);
+  res.status(500).send(err.message);
+});
 
 
 module.exports = server;
