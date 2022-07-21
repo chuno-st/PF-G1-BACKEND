@@ -4,7 +4,7 @@ const routes = require('./routes/index.js')
 const bodyParser = require('body-parser');
 require('./db.js');
 
-const { messagesRouter } = require("./messages/messages.router");
+//const { messagesRouter } = require("./messages/messages.router");
 const serverRouter = express.Router();
 
 //server.use(bodyParser.json({ limit: '50mb' }));//middelware
