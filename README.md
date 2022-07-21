@@ -18,7 +18,7 @@ ${URL}product?name=${str}
 Trae producto por ID, sino trae todo
 ${URL}product/{id}
 
-filtra por category, subcategory y paginado, si faltan parametros devuelve todo
+filtra por subcategory y rango de precio si faltan parametros devuelve todo
 ${URL}product/subCategory?subcategory=${int}&max=${int}&min=${int}
 
 filtra por orderBy(name o price), order(ASC o DESC) y paginado, si faltan parametros devuelve todo
