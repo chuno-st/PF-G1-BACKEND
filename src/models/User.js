@@ -3,59 +3,24 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     // defino el modelo
     sequelize.define('User', {
-      user_id: {
-        type: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
         allowNull: false
       },
-
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      password: {
+      userName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-
-      first_name: {
+      email: {
         type: DataTypes.STRING,
         allowNull: false
       },
-
-      last_name: {
-        type: DataTypes.STRING,
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false
-      },
-
-      telephone: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-
-      address: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-
-      city: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-
-      postal_code: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-
-      country: {
-        type: DataTypes.STRING,
-        allowNull: false
-      }
-
-
-      
-    }, { timestamps: true });
+      }      
+    }, { timestamps: false });
   };
+

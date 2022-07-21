@@ -3,6 +3,7 @@ const productRoutes = require('./productRoutes');
 const categoryRoutes = require('./categoryRoutes')
 const subcategoryRoutes = require('./subcategoryRoutes');
 // const materialRoutes = require('./materialRoutes');
+const userRoutes = require('./userRoutes');
 
 // Importar todos los routers;
 
@@ -12,6 +13,7 @@ const subcategoryRoutes = require('./subcategoryRoutes');
 
 const router = Router();
 
+router.use('/adduser', userRoutes)
 router.use('/product', productRoutes)
 router.use('/category', categoryRoutes)
 router.use('/subcategory', subcategoryRoutes)

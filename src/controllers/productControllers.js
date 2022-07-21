@@ -1,5 +1,6 @@
-const { Product } = require('../db');
-const {Op} = require('sequelize')
+const { Product, Material } = require('../db');
+const {Op, Model} = require('sequelize');
+
 
 const getById = async (req, res) => {
     try {
@@ -45,6 +46,54 @@ const getProduct = async (req, res) => {
 const createProduct = (req, res) => {
     try {
         res.send("Funciona Post")
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+const getByRangePrice = async (req,res) => {
+    const {max, min} = req.query
+
+    try {
+        if(max && min){
+
+            const productsByRangePrice = await Product.findAll({
+                where: {
+                    price :{
+                        [Op.between]: [min, max]
+                    }
+                }
+                })
+            res.json(productsByRangePrice);
+
+        }else{
+            const products = await Product.findAll()
+            res.json(products)
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+const getByMaterial = async (req,res) => {
+    const {material} = req.query
+
+    try {
+        if(material){
+            const productsByMaterial = await Product.findAll({
+                include: [{
+                    attributes: ['name'],
+                    model: Material,
+                    where: { name: material } 
+                  }]
+            })
+            res.json(productsByMaterial);
+        }
+        else{
+            const products = await Product.findAll()
+            res.json(products)
+        }
+
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -142,10 +191,12 @@ try {
 }
 
 module.exports = {
+    getByRangePrice,
     createProduct,
     getById,
     getProductsOrder,
     getByCategory,
     getProduct,
-    getPagination
+    getPagination,
+    getByMaterial
 }
