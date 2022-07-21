@@ -99,36 +99,31 @@ const getByMaterial = async (req,res) => {
     }
 }
 
-const getByCategory = async (req, res) => {
-    const { category, subcategory, desde, limite } = req.query
+const getBySubCategory = async (req, res) => {
+    const { subcategory, max, min } = req.query
 
     try {
-        if(category && subcategory){
-            const productsByCategory = await Product.findAll({
+        if(!max && !min && subcategory ){
+            const productsBySubCategory = await Product.findAll({
                 where: {
-                    category_id: category,
-                    subCategory_id: subcategory
-                },
-                offset: desde,
-                limit: limite 
-            });
-            res.json(productsByCategory);
-
-        }else if(category){
-            const productsByCategory = await Product.findAll({
-                where: {
-                    category_id: category
-                },
-                offset: desde,
-                limit: limite 
+                    subCategory_id: subcategory,
+                }
         });
-            res.json(productsByCategory);
+         res.json(productsBySubCategory);
+        }
+        if (max && min && subcategory) {
+            const productsBySubCategory = await Product.findAll({
+                where: {
+                    subCategory_id: subcategory,
+                    price :{
+                        [Op.between]: [min, max]
+                    }
+                }
+        });
+         res.json(productsBySubCategory);
         }
         else{
-            const products = await Product.findAll({
-                offset: desde,
-                limit: limite 
-            })
+            const products = await Product.findAll()
             res.json(products)
         }
 
@@ -195,7 +190,7 @@ module.exports = {
     createProduct,
     getById,
     getProductsOrder,
-    getByCategory,
+    getBySubCategory,
     getProduct,
     getPagination,
     getByMaterial

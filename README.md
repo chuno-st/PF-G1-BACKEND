@@ -19,7 +19,7 @@ Trae producto por ID, sino trae todo
 ${URL}product/{id}
 
 filtra por category, subcategory y paginado, si faltan parametros devuelve todo
-${URL}product/category?category=${int}&subcategory=${int}&limite=${int}&desde=${int}
+${URL}product/subCategory?subcategory=${int}&max=${int}&min=${int}
 
 filtra por orderBy(name o price), order(ASC o DESC) y paginado, si faltan parametros devuelve todo
 ${URL}product/order?orderBy=${str}&order=${str}&limite=${int}&desde=${int}
