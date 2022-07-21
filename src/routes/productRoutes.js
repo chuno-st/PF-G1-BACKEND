@@ -6,8 +6,8 @@ router.get('/', getProduct);
 router.get('/order', getProductsOrder);
 router.get('/category', getByCategory);
 router.get('/pagination', getPagination)
-router.get('/material', getByMaterial)
-router.get('/rangeprice', getByRangePrice)
+router.get('/material', getByMaterial);
+router.get('/rangeprice', getByRangePrice);
 router.get('/:id', getById);
 router.post('/', createProduct);
 
