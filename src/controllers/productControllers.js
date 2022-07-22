@@ -43,9 +43,27 @@ const getProduct = async (req, res) => {
     }
 }
 
-const createProduct = (req, res) => {//GENERAR POST
+const createProduct = async (req, res) => {//GENERAR POST
+    const {name, description, price, image, category_id, subCategory_id, material_id} = req.body
     try {
-        res.send("Funciona Post")
+        const newProduct = await Product.findOrCreate({
+            where: {
+            name, 
+            description, 
+            price, 
+            image,
+            category_id,
+            subCategory_id,
+            material_id
+        }
+        })
+
+        //newProduct = await Product.setMaterial(material)
+
+
+        res.json(newProduct)
+
+
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
