@@ -43,26 +43,21 @@ const getProduct = async (req, res) => {
     }
 }
 
-const createProduct = async (req, res) => {//GENERAR POST
+const createProduct = async (req, res) => {
     const {name, description, price, image, category_id, subCategory_id, material_id} = req.body
     try {
-        const newProduct = await Product.findOrCreate({
-            where: {
+        const newProduct = await Product.create({
             name, 
             description, 
             price, 
-            image,
-            category_id,
-            subCategory_id,
-            material_id
-        }
+            image
         })
 
-        //newProduct = await Product.setMaterial(material)
-
+        newProduct.setSubCategory(subCategory_id)
+        newProduct.setMaterial(material_id)
+        newProduct.setCategory(category_id)
 
         res.json(newProduct)
-
 
     } catch (error) {
         return res.status(500).json({ message: error.message })
