@@ -33,6 +33,7 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
+
 Crear Producto  (PASAR POR BODY OBJETO)
 ${URL}product/
 {
@@ -45,6 +46,18 @@ subCategory_id: "",
 material_id: ""
 }
 
+
+Modificar Producto (PASAR POR BODY OBJETO)
+{
+id: INT
+name: "",
+description: "",
+price: FLOAT,
+image: "",
+category_id: "",
+subCategory_id: "",
+material_id: ""
+}
 ------------------------------------------------------------------------------------
 DATOS MERCADO PAGO
 
