@@ -103,7 +103,7 @@ const getBySubCategory = async (req, res) => {
             });
             res.json(productsBySubCategory);
         }
-        if (max && min && subcategory) {
+        else if (max && min && subcategory) {
             const productsBySubCategory = await Product.findAll({
                 where: {
                     subCategory_id: subcategory,
@@ -179,18 +179,13 @@ try {
 
 //-------------------POST-----------------------//
 const createProduct = async (req, res) => {
-    const {name, description, price, image, category_id, subCategory_id, material_id} = req.body
+    const body = req.body
     try {
-        const newProduct = await Product.create({
-            name, 
-            description, 
-            price, 
-            image
-        })
+        const newProduct = await Product.create(body)
         
-        newProduct.setSubCategory(subCategory_id)
-        newProduct.setMaterial(material_id)
-        newProduct.setCategory(category_id)
+        newProduct.setSubCategory(body.subCategory_id)
+        newProduct.setMaterial(body.material_id)
+        newProduct.setCategory(body.category_id)
         
         res.json(newProduct)
         
@@ -201,19 +196,11 @@ const createProduct = async (req, res) => {
 
 //-------------------PUT-----------------------//
 const updateProduct = async (req, res) => {
-    const {id , name, description, price, image, category_id, subCategory_id, material_id} = req.body
+    const body = req.body
     try {
-        const updateProduct = await Product.update({
-            name, 
-            description, 
-            price, 
-            image,
-            category_id,
-            subCategory_id,
-            material_id
-        },{
+        const updateProduct = await Product.update(body,{
             where:{
-                product_id:id
+                product_id: body.id
             }
         })
 
@@ -223,7 +210,21 @@ const updateProduct = async (req, res) => {
     }
 }
 
+//-------------------DELETE-----------------------//
+const deleteProduct = async (req,res) => {
+    const {id} = req.params
+    try {
+        const deleteProduct = await Product.destroy({
+            where:{
+                product_id:id
+            }
+        })
 
+        res.json(deleteProduct)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
 
 module.exports = {
     getByRangePrice,
@@ -234,5 +235,6 @@ module.exports = {
     getProduct,
     getPagination,
     getByMaterial,
-    updateProduct
+    updateProduct,
+    deleteProduct
 }

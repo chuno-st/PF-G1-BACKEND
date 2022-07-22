@@ -1,7 +1,9 @@
-/*const { Router } = require('express');
-const { getMaterialsFromDB } = require('../controllers/materialControllers')
+const { Router } = require('express');
+const { getMaterials, /*createMaterial */} = require('../controllers/materialControllers')
 
 const router = Router();
-router.use('/material', getMaterialsFromDB);
+router.get('/', getMaterials);
 
-module.exports = router;*/
+//router.post('/', createMaterial);
+
+module.exports = router;

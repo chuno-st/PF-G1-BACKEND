@@ -35,7 +35,7 @@ ${URL}product/material?material=${str}
 
 
 Crear Producto  (PASAR POR BODY OBJETO)
-${URL}product/
+post.${URL}product/
 {
 name: "",
 description: "",
@@ -48,8 +48,9 @@ material_id: ""
 
 
 Modificar Producto (PASAR POR BODY OBJETO)
+put.${URL}product/
 {
-id: INT
+id: INT (obligatorio)
 name: "",
 description: "",
 price: FLOAT,
@@ -58,6 +59,10 @@ category_id: "",
 subCategory_id: "",
 material_id: ""
 }
+
+
+Eliminar Producto (PASAR POR PARAMS ID)
+delete.${URL}product/:id
 ------------------------------------------------------------------------------------
 DATOS MERCADO PAGO
 
