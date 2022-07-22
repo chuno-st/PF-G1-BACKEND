@@ -1,7 +1,8 @@
 const express = require('express');
 const server = express();
-const routes = require('./routes/index.js')
+const routes = require('./routes/index.js');
 const bodyParser = require('body-parser');
+const dotenv = require("dotenv");
 require('./db.js');
 
 //const { messagesRouter } = require("./messages/messages.router");
@@ -10,7 +11,7 @@ const serverRouter = express.Router();
 //server.use(bodyParser.json({ limit: '50mb' }));//middelware
 //ruteamos que se ejecute server luego de solicitudes a "/"
 
-
+dotenv.config();
 server.use("/api", serverRouter);
 
 

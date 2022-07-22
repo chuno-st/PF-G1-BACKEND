@@ -43,7 +43,7 @@ const getProduct = async (req, res) => {
     }
 }
 
-const createProduct = (req, res) => {
+const createProduct = (req, res) => {//GENERAR POST
     try {
         res.send("Funciona Post")
     } catch (error) {

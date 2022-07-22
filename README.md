@@ -32,3 +32,19 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
+
+------------------------------------------------------------------------------------
+DATOS MERCADO PAGO
+
+USUARIO 1 VENDEDOR
+
+{"id":1165071449,"nickname":"TESTLWQ9KQVB","password":"qatest6361","site_status"
+:"active","email":"test_user_70735004@testuser.com"}
+Acces Token TEST-5156527929068625-072206-65b513d9ae0512a3368f73d499f60b79-1165071449
+
+
+USUARIO 2 COMPRADOR
+
+{"id":1165072510,"nickname":"TESTMYCQYJIS","password":"qatest9956","site_status"
+:"active","email":"test_user_99523462@testuser.com"}
+------------------------------------------------------------------------------------
