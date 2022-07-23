@@ -37,9 +37,9 @@ const paymentMP = async (req, res)=>{
         }
     },
       back_urls: {
-        failure: "/failure",
-        pending: "/pending",
-        success: "/success"
+        failure: "https://pf-g1-frontend-six.vercel.app/",
+        pending: "https://pf-g1-frontend-six.vercel.app/",
+        success: "https://pf-g1-frontend-six.vercel.app/"
       }
     };
 
