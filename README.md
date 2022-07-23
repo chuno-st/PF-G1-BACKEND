@@ -33,7 +33,7 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
-
+//-------------------------PRODUCTOS----------------------/
 Crear Producto  (PASAR POR BODY OBJETO)
 post.${URL}product/
 {
@@ -63,6 +63,33 @@ material_id: ""
 
 Eliminar Producto (PASAR POR PARAMS ID)
 delete.${URL}product/:id
+
+
+//-------------------------MATERIAL----------------------/
+
+Crear Material  (PASAR POR BODY OBJETO)
+post.${URL}material/
+{
+    "name": "marmoldecolores",
+    "hardness": "4",
+    "purity":"5",
+    "color":[]
+}
+
+
+Modificar Material (PASAR POR BODY OBJETO)
+put.${URL}material/
+{
+    "id": 23,
+    "name": "marmolNegroCambiadoUltimaVez",
+    "hardness": "3",
+    "purity":"2",
+    "color":[]
+}
+
+
+Eliminar Material (PASAR POR PARAMS ID)
+delete.${URL}material/:id
 ------------------------------------------------------------------------------------
 DATOS MERCADO PAGO
 
