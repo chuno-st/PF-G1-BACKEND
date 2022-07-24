@@ -29,7 +29,7 @@ const getProduct = async (req, res) => {
             })
             productByName ?
                 res.status(200).json(productByName) :
-                res.status(404).json({message: "Recipe doesn't exist"})
+                res.status(404).json({message: "El producto no existe"})
         }
         else{
             const allProducts = await Product.findAll({
