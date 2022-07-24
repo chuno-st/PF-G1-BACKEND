@@ -19,15 +19,9 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: "1",
       },
-      // color: {
-      //   type: DataTypes.ENUM('Violet','White','Blue','Rose','Yellow','Red', 'Brown','Turquoise','Cyan', 'Green'),
-      //   allowNull: false,
-        
-      // },
       purity: {
         type: DataTypes.ENUM('1','2','3','4','5'),
         allowNull: false
-
       }
 
     }, { timestamps: false });

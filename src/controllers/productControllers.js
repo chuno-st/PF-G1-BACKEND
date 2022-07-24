@@ -1,7 +1,7 @@
 const { Product, Material } = require('../db');
 const {Op, Model} = require('sequelize');
 
-
+//-------------------GET-----------------------//
 const getById = async (req, res) => {
     try {
         const { id } = req.params
@@ -13,9 +13,8 @@ const getById = async (req, res) => {
 }
 
 const getProduct = async (req, res) => {
-    const {name, limite, desde} = req.query
+const {name, limite, desde} = req.query
 
-    const products = await Product.findAll()
     try {
         if (name) {
             const productByName = await Product.findAll({
@@ -29,7 +28,7 @@ const getProduct = async (req, res) => {
             })
             productByName ?
                 res.status(200).json(productByName) :
-                res.status(404).json({message: "Recipe doesn't exist"})
+                res.status(404).json({message: "Product doesn't exist"})
         }
         else{
             const allProducts = await Product.findAll({
@@ -43,20 +42,12 @@ const getProduct = async (req, res) => {
     }
 }
 
-const createProduct = (req, res) => {//GENERAR POST
-    try {
-        res.send("Funciona Post")
-    } catch (error) {
-        return res.status(500).json({ message: error.message })
-    }
-}
-
 const getByRangePrice = async (req,res) => {
     const {max, min} = req.query
 
     try {
         if(max && min){
-
+            
             const productsByRangePrice = await Product.findAll({
                 where: {
                     price :{
@@ -64,10 +55,10 @@ const getByRangePrice = async (req,res) => {
                     }
                 }
                 })
-            res.json(productsByRangePrice);
-
-        }else{
-            const products = await Product.findAll()
+                res.json(productsByRangePrice);
+                
+            }else{
+                const products = await Product.findAll()
             res.json(products)
         }
     } catch (error) {
@@ -77,7 +68,7 @@ const getByRangePrice = async (req,res) => {
 
 const getByMaterial = async (req,res) => {
     const {material} = req.query
-
+    
     try {
         if(material){
             const productsByMaterial = await Product.findAll({
@@ -85,7 +76,7 @@ const getByMaterial = async (req,res) => {
                     attributes: ['name'],
                     model: Material,
                     where: { name: material } 
-                  }]
+                }]
             })
             res.json(productsByMaterial);
         }
@@ -93,7 +84,7 @@ const getByMaterial = async (req,res) => {
             const products = await Product.findAll()
             res.json(products)
         }
-
+        
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -101,17 +92,17 @@ const getByMaterial = async (req,res) => {
 
 const getBySubCategory = async (req, res) => {
     const { subcategory, max, min } = req.query
-
+    
     try {
         if(!max && !min && subcategory ){
             const productsBySubCategory = await Product.findAll({
                 where: {
                     subCategory_id: subcategory,
                 }
-        });
-         res.json(productsBySubCategory);
+            });
+            res.json(productsBySubCategory);
         }
-        if (max && min && subcategory) {
+        else if (max && min && subcategory) {
             const productsBySubCategory = await Product.findAll({
                 where: {
                     subCategory_id: subcategory,
@@ -119,14 +110,14 @@ const getBySubCategory = async (req, res) => {
                         [Op.between]: [min, max]
                     }
                 }
-        });
-         res.json(productsBySubCategory);
+            });
+            res.json(productsBySubCategory);
         }
         else{
             const products = await Product.findAll()
             res.json(products)
         }
-
+        
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -146,11 +137,11 @@ const getProductsOrder = async (req, res) => {
                     res.json(productsOrderByPrice)
                 }
                 break;
-
-            case "name":
-                if (order === "ASC" || order === "DESC") {
-                    const productsOrderByABC = await Product.findAll({
-                        order: [[orderBy, order]],
+                
+                case "name":
+                    if (order === "ASC" || order === "DESC") {
+                        const productsOrderByABC = await Product.findAll({
+                            order: [[orderBy, order]],
                         offset: desde,
                         limit: limite 
                     })
@@ -185,6 +176,55 @@ try {
 }
 }
 
+//-------------------POST-----------------------//
+const createProduct = async (req, res) => {
+    const body = req.body
+    try {
+        const newProduct = await Product.create(body)
+        
+        newProduct.setSubCategory(body.subCategory_id)
+        newProduct.setMaterial(body.material_id)
+        newProduct.setCategory(body.category_id)
+        
+        res.json(newProduct)
+        
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+//-------------------PUT-----------------------//
+const updateProduct = async (req, res) => {
+    const body = req.body
+    try {
+        const updateProduct = await Product.update(body,{
+            where:{
+                product_id: body.id
+            }
+        })
+
+        res.json(updateProduct)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+//-------------------DELETE-----------------------//
+const deleteProduct = async (req,res) => {
+    const {id} = req.params
+    try {
+        const deleteProduct = await Product.destroy({
+            where:{
+                product_id:id
+            }
+        })
+
+        res.json(deleteProduct)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 module.exports = {
     getByRangePrice,
     createProduct,
@@ -193,5 +233,7 @@ module.exports = {
     getBySubCategory,
     getProduct,
     getPagination,
-    getByMaterial
+    getByMaterial,
+    updateProduct,
+    deleteProduct
 }

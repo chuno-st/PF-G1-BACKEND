@@ -25,8 +25,8 @@ const checkRole = async (req, res) => {
                 id: id,
             },
         })
-        if(adminUser.isAdmin === null){
-            res.json({ message: "Not found!"})
+        if (adminUser.isAdmin === null) {
+            res.json({ message: "Not found!" })
         } else {
             res.json(adminUser.isAdmin)
         }
@@ -34,7 +34,25 @@ const checkRole = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
+
+const updateUser = async (req, res) => {
+
+    const body = req.body
+    try {
+        const updateUser = await User.update(body, {
+            where: {
+                id: body.id
+            }
+        })
+
+        res.json(updateUser)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 module.exports = {
     addUser,
-    checkRole
+    checkRole,
+    updateUser
 }

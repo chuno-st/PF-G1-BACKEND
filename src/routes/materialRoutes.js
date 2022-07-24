@@ -1,7 +1,12 @@
-/*const { Router } = require('express');
-const { getMaterialsFromDB } = require('../controllers/materialControllers')
+const { Router } = require('express');
+const { getMaterials, createMaterial, updateMaterial, deleteMaterial } = require('../controllers/materialControllers')
 
 const router = Router();
-router.use('/material', getMaterialsFromDB);
+router.get('/', getMaterials);
 
-module.exports = router;*/
+router.post('/', createMaterial);
+
+router.put('/', updateMaterial);
+
+router.delete('/:id', deleteMaterial);
+module.exports = router;
