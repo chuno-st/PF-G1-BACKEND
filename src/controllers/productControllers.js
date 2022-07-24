@@ -15,7 +15,6 @@ const getById = async (req, res) => {
 const getProduct = async (req, res) => {
 const {name, limite, desde} = req.query
 
-    const products = await Product.findAll()
     try {
         if (name) {
             const productByName = await Product.findAll({
@@ -29,7 +28,7 @@ const {name, limite, desde} = req.query
             })
             productByName ?
                 res.status(200).json(productByName) :
-                res.status(404).json({message: "Recipe doesn't exist"})
+                res.status(404).json({message: "Product doesn't exist"})
         }
         else{
             const allProducts = await Product.findAll({

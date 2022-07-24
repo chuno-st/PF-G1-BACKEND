@@ -33,6 +33,9 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
+
+
+
 //-------------------------PRODUCTOS----------------------/
 Crear Producto  (PASAR POR BODY OBJETO)
 post.${URL}product/
@@ -65,6 +68,8 @@ Eliminar Producto (PASAR POR PARAMS ID)
 delete.${URL}product/:id
 
 
+
+
 //-------------------------MATERIAL----------------------/
 
 Crear Material  (PASAR POR BODY OBJETO)
@@ -91,6 +96,9 @@ Eliminar Material (PASAR POR PARAMS ID)
 delete.${URL}material/:id
 
 
+
+
+
 //---------------------------CATEGORY------------------------/
 
 Crear Category  (PASAR POR BODY OBJETO)
@@ -107,7 +115,9 @@ put.${URL}category/
 }
 
 Eliminar Category (PASAR ID POR PARAMS )
-put.${URL}category/:id
+delete.${URL}category/:id
+
+
 
 
 //-------------------------SUB-CATEGORY----------------------/
@@ -126,10 +136,31 @@ put.${URL}category/
 }
 
 Eliminar SubCategory (PASAR ID POR PARAMS )
-put.${URL}category/:id
+delete.${URL}category/:id
+
+
+
+
+//-------------------------USER_FAVS----------------------/
+
+Agregar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
+post.${URL}favs/:id
+{
+    "product_id": 7
+}
+
+Eliminar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
+delete.${URL}favs/:id
+{
+    "product_id": 7
+}
+
+Get Favs (PASAR ID DEL USUARIO POR PARAMS)
+get.${URL}favs/:id
 
 
 ------------------------------------------------------------------------------------
+
 DATOS MERCADO PAGO
 
 USUARIO 1 VENDEDOR
@@ -143,4 +174,5 @@ USUARIO 2 COMPRADOR
 
 {"id":1165072510,"nickname":"TESTMYCQYJIS","password":"qatest9956","site_status"
 :"active","email":"test_user_99523462@testuser.com"}
+
 ------------------------------------------------------------------------------------
