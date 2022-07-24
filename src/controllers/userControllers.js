@@ -1,5 +1,6 @@
 const { User } = require('../db')
 
+
 const addUser = async (req, res) => {
     const { id, userName, email} = req.body
     try {

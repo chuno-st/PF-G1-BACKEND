@@ -4,7 +4,7 @@ const { checkJwt, checkPermissions } = require('../middlewares/checkAuth0');
 
 const router = Router();
 
-router.get('/', checkJwt, checkPermissions, getSubCategories);
+router.get('/', getSubCategories);
 router.post('/', createSubCategory);
 router.put('/', updateSubCategory);
 router.delete('/:id', deleteSubCategory);
