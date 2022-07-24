@@ -1,7 +1,7 @@
 const {expressjwt : jwt} = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 const jwtAuthz = require('express-jwt-authz')
-//const { domain, audience } = process.env;
+
 
 const domain = process.env.AUTH0_DOMAIN
 const audience = process.env.AUTH0_AUDIENCE
