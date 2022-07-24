@@ -33,9 +33,6 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
-<<<<<<< HEAD
---------------------------------------------------------------
-=======
 
 
 
@@ -164,7 +161,6 @@ get.${URL}favs/:id
 
 ------------------------------------------------------------------------------------
 
->>>>>>> d2147457e2e80c9969e24c53443b4371bcfa9e70
 DATOS MERCADO PAGO
 
 USUARIO 1 VENDEDOR
