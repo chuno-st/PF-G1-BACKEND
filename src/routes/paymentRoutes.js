@@ -3,7 +3,7 @@ const { paymentMP } = require('../controllers/paymentControllers')
 
 const router = Router();
 
-router.get('/', paymentMP);
+router.post('/', paymentMP);
 
 
 module.exports = router;

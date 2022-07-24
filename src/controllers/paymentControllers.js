@@ -1,41 +1,49 @@
-
 const axios = require("axios");
+const { User } = require('../db')
 
 
 const paymentMP = async (req, res)=>{
+  
+  const {id} = req.query
+  let items = req.body
+  console.log(items)
+  const itemsMapeados = items.map(item => ({
+    id: item.product_id,
+    category_id: item.category_id,
+    title: item.name,
+    description: item.description,
+    picture_url: item.image,
+    quantity: item.cantidad,
+    unit_price: item.price
+  }))
 
-    try {
-        const url = "https://api.mercadopago.com/checkout/preferences";
+  const user = await User.findByPk(id)
+  
+  const payerMP = {
+    name: user.userName,
+    surname: user.userName,
+    email: user.email,
+    phone: {
+      number: user.telefono
+    },
+    identification: {
+      type: "DNI",
+      number: user.dni
+  },
+  address: {
+    street_name: user.calle,
+    street_number: user.direccion,
+    zip_code: user.codigo_postal
+  }
+}
+
+  try {
+    console.log("info del pagante", payerMP)
+    const url = "https://api.mercadopago.com/checkout/preferences";
 
     const body = {
-      items: [
-        {
-          title: "Dummy Title",
-          description: "Dummy description",
-          picture_url: "http://www.myapp.com/myimage.jpg",
-          category_id: "category123",
-          quantity: 1,
-          unit_price: 10
-        }
-      ],
-      payer: {
-        name: "Juan",
-        surname: "Lopez",
-        email: "test_user_99523462@testuser.com",
-        phone: {
-            area_code: "11",
-            number: "4444-4444"
-        },
-        identification: {
-            type: "DNI",
-            number: "12345678"
-        },
-        address: {
-            street_name: "Street",
-            street_number: 123,
-            zip_code: "5700"
-        }
-    },
+      items: itemsMapeados,
+      payer: payerMP,
       back_urls: {
         failure: "https://pf-g1-frontend-six.vercel.app/",
         pending: "https://pf-g1-frontend-six.vercel.app/",
@@ -50,9 +58,10 @@ const paymentMP = async (req, res)=>{
       }
     });
 
-      res.json(payment.data);
+      res.json(payment.data.init_point);
 
     } catch (error) {
+        console.log(items)
         return res.status(500).json({ message: error.message })
     }
 }

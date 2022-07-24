@@ -1,13 +1,14 @@
 const { User } = require('../db')
 
+
 const addUser = async (req, res) => {
-    const { id, userName, email } = req.body
+    const { id, userName, email} = req.body
     try {
         const newUser = await User.findOrCreate({
             where: {
                 id,
                 userName,
-                email,
+                email
             }
         })
         res.json(newUser)
