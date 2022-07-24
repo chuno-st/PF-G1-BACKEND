@@ -87,9 +87,48 @@ put.${URL}material/
     "color":[]
 }
 
-
 Eliminar Material (PASAR POR PARAMS ID)
 delete.${URL}material/:id
+
+
+//---------------------------CATEGORY------------------------/
+
+Crear Category  (PASAR POR BODY OBJETO)
+post.${URL}category/
+{
+    "name": "cualquiercosa",
+}
+
+Modificar Category (PASAR POR BODY OBJETO)
+put.${URL}category/
+{
+    "id":9,
+    "name":"Lentes"
+}
+
+Eliminar Category (PASAR ID POR PARAMS )
+put.${URL}category/:id
+
+
+//-------------------------SUB-CATEGORY----------------------/
+
+Crear SubCategory  (PASAR POR BODY OBJETO)
+post.${URL}category/
+{
+    "name": "cualquiercosa",
+}
+
+Modificar SubCategory (PASAR POR BODY OBJETO)
+put.${URL}category/
+{
+    "id":9,
+    "name":"Lentes"
+}
+
+Eliminar SubCategory (PASAR ID POR PARAMS )
+put.${URL}category/:id
+
+
 ------------------------------------------------------------------------------------
 DATOS MERCADO PAGO
 
