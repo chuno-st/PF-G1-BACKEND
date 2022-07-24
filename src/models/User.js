@@ -20,7 +20,51 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
-      }      
-    }, { timestamps: false });
+      },
+      calle: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      direccion: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      piso: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      departamento: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      codigo_postal: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      provincia: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      localidad: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      telefono: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      dni: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      fecha_nacimiento: {
+        type: DataTypes.DATEONLY,
+        allowNull: true
+      },
+      genero: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+    }, { timestamps: true });
   };
 

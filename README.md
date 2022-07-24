@@ -33,7 +33,134 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
+
+
+
+//-------------------------PRODUCTOS----------------------/
+Crear Producto  (PASAR POR BODY OBJETO)
+post.${URL}product/
+{
+name: "",
+description: "",
+price: FLOAT,
+image: "",
+category_id: "",
+subCategory_id: "",
+material_id: ""
+}
+
+
+Modificar Producto (PASAR POR BODY OBJETO)
+put.${URL}product/
+{
+id: INT (obligatorio)
+name: "",
+description: "",
+price: FLOAT,
+image: "",
+category_id: "",
+subCategory_id: "",
+material_id: ""
+}
+
+
+Eliminar Producto (PASAR POR PARAMS ID)
+delete.${URL}product/:id
+
+
+
+
+//-------------------------MATERIAL----------------------/
+
+Crear Material  (PASAR POR BODY OBJETO)
+post.${URL}material/
+{
+    "name": "marmoldecolores",
+    "hardness": "4",
+    "purity":"5",
+    "color":[]
+}
+
+
+Modificar Material (PASAR POR BODY OBJETO)
+put.${URL}material/
+{
+    "id": 23,
+    "name": "marmolNegroCambiadoUltimaVez",
+    "hardness": "3",
+    "purity":"2",
+    "color":[]
+}
+
+Eliminar Material (PASAR POR PARAMS ID)
+delete.${URL}material/:id
+
+
+
+
+
+//---------------------------CATEGORY------------------------/
+
+Crear Category  (PASAR POR BODY OBJETO)
+post.${URL}category/
+{
+    "name": "cualquiercosa",
+}
+
+Modificar Category (PASAR POR BODY OBJETO)
+put.${URL}category/
+{
+    "id":9,
+    "name":"Lentes"
+}
+
+Eliminar Category (PASAR ID POR PARAMS )
+delete.${URL}category/:id
+
+
+
+
+//-------------------------SUB-CATEGORY----------------------/
+
+Crear SubCategory  (PASAR POR BODY OBJETO)
+post.${URL}category/
+{
+    "name": "cualquiercosa",
+}
+
+Modificar SubCategory (PASAR POR BODY OBJETO)
+put.${URL}category/
+{
+    "id":9,
+    "name":"Lentes"
+}
+
+Eliminar SubCategory (PASAR ID POR PARAMS )
+delete.${URL}category/:id
+
+
+
+
+//-------------------------USER_FAVS----------------------/
+
+Agregar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
+post.${URL}favs/:id
+{
+    "product_id": 7
+}
+
+Eliminar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
+delete.${URL}favs/:id
+{
+    "product_id": 7
+}
+
+Get Favs (PASAR ID DEL USUARIO POR PARAMS)
+get.${URL}favs/:id
+
+
 ------------------------------------------------------------------------------------
+
 DATOS MERCADO PAGO
 
 USUARIO 1 VENDEDOR
@@ -47,4 +174,5 @@ USUARIO 2 COMPRADOR
 
 {"id":1165072510,"nickname":"TESTMYCQYJIS","password":"qatest9956","site_status"
 :"active","email":"test_user_99523462@testuser.com"}
+
 ------------------------------------------------------------------------------------
