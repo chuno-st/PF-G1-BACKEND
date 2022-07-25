@@ -4,7 +4,7 @@ const { addUser, checkRole, updateUser } = require('../controllers/userControlle
 const router = Router();
 
 router.post('/', addUser);
-router.put('/', updateUser);
+router.put('/' , updateUser);
 router.get('/checkrole', checkRole)
 
 module.exports = router;
