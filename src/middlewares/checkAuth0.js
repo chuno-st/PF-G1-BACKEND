@@ -19,7 +19,7 @@ const checkJwt = jwt({
     algorithms: ['RS256'],
 });
 
-const checkPermissions = jwtAuthz(["read:message"],{
+const checkPermissions = jwtAuthz(["read:messages"],{
     customScopeKey:"permissions"
 });
 
