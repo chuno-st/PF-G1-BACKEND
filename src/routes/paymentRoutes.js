@@ -5,7 +5,7 @@ const { checkJwt, checkPermissions } = require('../middlewares/checkAuth0');
 const router = Router();
 
 router.post('/', /* checkJwt */ paymentMP);
-router.get('/button', /* checkJwt, */ paymentButton);
+router.get('/button' ,checkJwt, checkPermissions , paymentButton);
 
 
 

@@ -1,4 +1,4 @@
-const {expressjwt : jwt} = require('express-jwt');
+const {expressjwt: jwt} = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 const jwtAuthz = require('express-jwt-authz')
 
@@ -19,7 +19,7 @@ const checkJwt = jwt({
     algorithms: ['RS256'],
 });
 
-const checkPermissions = jwtAuthz(["read:info"],{
+const checkPermissions = jwtAuthz(["read:message"],{
     customScopeKey:"permissions"
 });
 
