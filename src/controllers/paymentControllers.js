@@ -58,7 +58,7 @@ const paymentMP = async (req, res)=>{
       }
     });
 
-      res.json(payment.data.init_point);
+    res.json(payment.data.init_point);
 
     } catch (error) {
         console.log(items)
