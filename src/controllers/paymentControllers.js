@@ -66,19 +66,8 @@ const paymentMP = async (req, res) => {
   }
 }
 
-const paymentButton = async (req, res) => {
-  try {
-    const message = "The API successfully validated your access token."
-    console.log("funcion correcta")
-    res.status(200).send(message);
-  } catch (error) {
-    console.log("no rompio")
-    return res.status(500).json({ message: error.message })
-  }
-}
 
 module.exports = {
-  paymentMP,
-  paymentButton
+  paymentMP
 }
 

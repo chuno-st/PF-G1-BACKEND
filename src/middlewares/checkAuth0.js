@@ -1,6 +1,6 @@
 const {expressjwt: jwt} = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
-const jwtAuthz = require('express-jwt-authz')
+//const jwtAuthz = require('express-jwt-authz')
 
 
 const domain = process.env.AUTH0_DOMAIN
@@ -18,12 +18,13 @@ const checkJwt = jwt({
     issuer: `https://${domain}/`,
     algorithms: ['RS256'],
 });
-
-const checkPermissions = jwtAuthz(["read:messages"],{
-    customScopeKey:"permissions"
-});
+/*
+const checkPermissions = jwtAuthz(["read:messages"],{ //RE HACER MIDDELWARE PROPIO
+    customScopeKey:"permissions",
+    checkAllScopes: true
+});*/
 
 module.exports = {
-    checkJwt,
-    checkPermissions
+    checkJwt
+    /*checkPermissions*/
 };
