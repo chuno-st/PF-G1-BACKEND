@@ -1,4 +1,4 @@
-const { User } = require('../db')
+const { User, Product } = require('../db')
 
 const getFavs = async (req, res) => {
     const { id } = req.params
@@ -15,12 +15,16 @@ const getFavs = async (req, res) => {
 const addFav = async (req, res) => {
     const { id } = req.params
     const { product_id } = req.body
-
     try {
         const userFind = await User.findByPk(id)
-        const userAddFavs = await userFind.addProduct(product_id)
-        
-        res.json(userAddFavs)
+        const productFav = await Product.findByPk(product_id)
+        const findFav = await userFind.hasProduct(productFav)
+        if(!findFav){
+            const userAddFavs = await userFind.addProduct(product_id)
+            res.json(userAddFavs)
+        }else {
+            throw new Error ("ya existe en favoritos")
+        }
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -33,7 +37,7 @@ const deleteFav = async (req, res) => {
     try {
         const userFind = await User.findByPk(id)
         const userDeleteFavs = await userFind.removeProduct(product_id)
-        
+
         res.json(userDeleteFavs)
     } catch (error) {
         return res.status(500).json({ message: error.message })
@@ -43,5 +47,5 @@ const deleteFav = async (req, res) => {
 module.exports = {
     getFavs,
     addFav,
-    deleteFav
+    deleteFav,
 }
