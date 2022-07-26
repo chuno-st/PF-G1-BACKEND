@@ -18,8 +18,8 @@ const checkJwt = jwt({
     issuer: `https://${domain}/`,
     algorithms: ['RS256'],
 });
-/*
-const checkPermissions = jwtAuthz(["read:messages"],{ //RE HACER MIDDELWARE PROPIO
+
+/*const checkPermissions = jwtAuthz(["read:messages"],{ //RE HACER MIDDELWARE PROPIO
     customScopeKey:"permissions",
     checkAllScopes: true
 });*/
