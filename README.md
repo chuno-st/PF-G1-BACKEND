@@ -37,6 +37,8 @@ ${URL}product/material?material=${str}
 
 
 //-------------------------PRODUCTOS----------------------/
+
+
 Crear Producto  (PASAR POR BODY OBJETO)
 post.${URL}product/
 {
@@ -157,6 +159,39 @@ delete.${URL}favs/:id
 
 Get Favs (PASAR ID DEL USUARIO POR PARAMS)
 get.${URL}favs/:id
+
+
+//-------------------------USER_ADMIN----------------------/
+
+Agregar/modificar datos USER  (PASAR POR BODY LOS DATOS DEL USUARIO)
+put.${URL}adduser
+{
+  "id":"google-oauth2|1-.-.-.-.-.-.5",    
+  "calle":"string",
+  "direccion":1234,
+  "piso":"string",
+  "departamento":"",
+  "codigo_postal":5006,
+  "provincia":"string",
+  "localidad":"string",
+  "telefono":3,
+  "dni":12121212,
+  "fecha_nacimiento":"2000-10-24",
+  "genero":"srting"
+}
+
+Modificar isAdmin del User (PASAR POR BODY EL ID DEL USUARIO Y EL BOOLEANO NUEVO DE ISADMIN)
+put.${URL}adduser/admin/
+{
+    "id":"google-oauth2|1.-.-.-.-.-.-.-5",
+    "isAdmin": true
+}
+
+Delete User (PASAR ID DEL USUARIO POR BODY)
+delete.${URL}adduser/admin/
+{
+    "id":"google-oauth2|1.-.-.-.-.-.-.-5",
+}
 
 
 ------------------------------------------------------------------------------------
