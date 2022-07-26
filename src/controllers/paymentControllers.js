@@ -1,7 +1,6 @@
 const axios = require("axios");
 const { User } = require('../db')
 
-
 const paymentMP = async (req, res) => {
 
   const { id } = req.query
@@ -65,7 +64,6 @@ const paymentMP = async (req, res) => {
     return res.status(500).json({ message: error.message })
   }
 }
-
 
 module.exports = {
   paymentMP

@@ -70,6 +70,15 @@ Eliminar Producto (PASAR POR PARAMS ID)
 delete.${URL}product/:id
 
 
+Agregar comentario a producto (PASAR {id, comment, author, rating} POR BODY)
+post.${URL}product/addreview
+{
+    "id": ,
+    "coment": ,
+    "author": ,
+    "rating":
+}
+
 
 
 //-------------------------MATERIAL----------------------/

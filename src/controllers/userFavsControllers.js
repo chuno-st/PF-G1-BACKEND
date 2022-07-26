@@ -1,4 +1,4 @@
-const { Product, User } = require('../db')
+const { User } = require('../db')
 
 const getFavs = async (req, res) => {
     const { id } = req.params
@@ -44,5 +44,4 @@ module.exports = {
     getFavs,
     addFav,
     deleteFav
-
 }
