@@ -1,11 +1,13 @@
-const { Product, Material } = require('../db');
+const { Product, Material, Review } = require('../db');
 const {Op, Model} = require('sequelize');
 
 //-------------------GET-----------------------//
 const getById = async (req, res) => {
     try {
         const { id } = req.params
-        const producto = await Product.findByPk(id)
+        const producto = await Product.findByPk(id,{
+            include: Review,
+        })
         res.json(producto)
     } catch (error) {
         return res.status(500).json({ message: error.message })
@@ -23,8 +25,7 @@ const {name, limite, desde} = req.query
                     [Op.iLike]: `%${name}%`,
                     }
                 },
-                offset: desde,
-                limit: limite 
+                include: Review
             })
             productByName ?
                 res.status(200).json(productByName) :
@@ -32,8 +33,7 @@ const {name, limite, desde} = req.query
         }
         else{
             const allProducts = await Product.findAll({
-                offset: desde,
-                limit: limite 
+                include: Review
             })
             res.status(200).json(allProducts)
         }
@@ -53,12 +53,15 @@ const getByRangePrice = async (req,res) => {
                     price :{
                         [Op.between]: [min, max]
                     }
-                }
+                },
+                include: Review
                 })
                 res.json(productsByRangePrice);
                 
             }else{
-                const products = await Product.findAll()
+                const products = await Product.findAll({
+                    include: Review,
+                })
             res.json(products)
         }
     } catch (error) {
@@ -76,12 +79,16 @@ const getByMaterial = async (req,res) => {
                     attributes: ['name'],
                     model: Material,
                     where: { name: material } 
+                },{
+                    model: Review
                 }]
             })
             res.json(productsByMaterial);
         }
         else{
-            const products = await Product.findAll()
+            const products = await Product.findAll({
+                include: Review
+            })
             res.json(products)
         }
         
@@ -98,7 +105,8 @@ const getBySubCategory = async (req, res) => {
             const productsBySubCategory = await Product.findAll({
                 where: {
                     subCategory_id: subcategory,
-                }
+                },
+                include: Review
             });
             res.json(productsBySubCategory);
         }
@@ -109,12 +117,15 @@ const getBySubCategory = async (req, res) => {
                     price :{
                         [Op.between]: [min, max]
                     }
-                }
+                },
+                include: Review
             });
             res.json(productsBySubCategory);
         }
         else{
-            const products = await Product.findAll()
+            const products = await Product.findAll({
+                include: Review
+            })
             res.json(products)
         }
         
@@ -132,7 +143,8 @@ const getProductsOrder = async (req, res) => {
                     const productsOrderByPrice = await Product.findAll({
                         order: [[orderBy, order]],
                         offset: desde,
-                        limit: limite 
+                        limit: limite,
+                        include: Review
                     })
                     res.json(productsOrderByPrice)
                 }
@@ -143,7 +155,8 @@ const getProductsOrder = async (req, res) => {
                         const productsOrderByABC = await Product.findAll({
                             order: [[orderBy, order]],
                         offset: desde,
-                        limit: limite 
+                        limit: limite,
+                        include: Review
                     })
                     res.json(productsOrderByABC)
                 }
@@ -154,7 +167,8 @@ const getProductsOrder = async (req, res) => {
                     
                 const products = await Product.findAll({
                     offset: desde,
-                    limit: limite 
+                    limit: limite,
+                    include: Review
                 })
                 res.json(products)
                 break;
@@ -189,6 +203,25 @@ const createProduct = async (req, res) => {
         res.json(newProduct)
         
     } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+const postReview = async (req,res) => {
+    const {id, comment, author, rating} = req.body
+    try {
+        const findProduct = await Product.findByPk(id)
+
+            findProduct.createReview({
+                comment,
+                author,
+                rating
+            })
+    
+            res.json(findProduct)
+
+    } catch (error) {
+        console.log(req.body)
         return res.status(500).json({ message: error.message })
     }
 }
@@ -235,5 +268,6 @@ module.exports = {
     getPagination,
     getByMaterial,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    postReview
 }
