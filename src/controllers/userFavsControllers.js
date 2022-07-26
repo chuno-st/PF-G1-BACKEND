@@ -44,8 +44,27 @@ const deleteFav = async (req, res) => {
     }
 }
 
+const checkFav = async (req, res) => {
+    const { id } = req.params
+    const { product_id } = req.body
+    try {
+        const userFind = await User.findByPk(id)
+        const productFav = await Product.findByPk(product_id)
+        const findFav = await userFind.hasProduct(productFav)
+        if(!findFav){
+            // const userAddFavs = await userFind.addProduct(product_id)
+            res.send(true)
+        }else {
+            res.send(false)
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 module.exports = {
     getFavs,
     addFav,
     deleteFav,
+    checkFav
 }
