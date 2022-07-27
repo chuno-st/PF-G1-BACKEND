@@ -182,6 +182,14 @@ const createProduct = async (req, res) => {
     try {
         const newProduct = await Product.create(body)
         
+        // let valorSubCategory = body.subCategory_id.toString()
+        //         let valorCategory = body.category_id.toString()
+        //         let valorMaterial = body.body.material_id.toString()
+        
+        //         newProduct.setSubCategory(valorSubCategory)
+        //         newProduct.setCategory(valorCategory)
+        //         newProduct.setMaterial(valorMaterial)
+        
         newProduct.setSubCategory(body.subCategory_id)
         newProduct.setMaterial(body.material_id)
         newProduct.setCategory(body.category_id)
@@ -189,9 +197,12 @@ const createProduct = async (req, res) => {
         res.json(newProduct)
         
     } catch (error) {
+        console.log("soy el body", body)
         return res.status(500).json({ message: error.message })
     }
 }
+
+
 
 //-------------------PUT-----------------------//
 const updateProduct = async (req, res) => {
