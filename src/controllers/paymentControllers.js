@@ -1,5 +1,6 @@
 const axios = require("axios");
-const { User } = require('../db')
+const { User } = require('../db');
+const { saveSale } = require('./salesControllers');
 
 const paymentMP = async (req, res) => {
 
@@ -57,7 +58,19 @@ const paymentMP = async (req, res) => {
       }
     });
 
-    res.json(payment.data);
+    const dataSale = {
+      client_id: payment.data.client_id,
+      collector_id: payment.data.collector_id,
+      sale_id: payment.data.id,
+      items: payment.data.items,
+      operation_type: payment.data.operation_type
+    }
+
+    saveSale(dataSale)
+
+
+
+    res.json(payment.data.init_point);
 
   } catch (error) {
     console.log(items)
