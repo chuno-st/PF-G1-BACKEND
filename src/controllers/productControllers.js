@@ -1,4 +1,4 @@
-const { Product, Material, Review, SubCategory, Category } = require('../db');
+const { Product, Material, Review} = require('../db');
 const {Op, Model} = require('sequelize');
 
 //-------------------GET-----------------------//
@@ -229,7 +229,9 @@ const createProduct = async (req, res) => {
 }
 
 const postReview = async (req,res) => {
-    const {id, comment, author, rating} = req.body
+    let {id, comment, author, rating} = req.body
+    id = parseInt(id)
+    rating = parseInt(rating)
     try {
         const findProduct = await Product.findByPk(id)
 

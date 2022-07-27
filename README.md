@@ -73,10 +73,10 @@ delete.${URL}product/:id
 Agregar comentario a producto (PASAR {id, comment, author, rating} POR BODY)
 post.${URL}product/addreview
 {
-    "id": ,
-    "coment": ,
-    "author": ,
-    "rating":
+    "id": "" ,
+    "coment": "",
+    "author": "",
+    "rating": ""
 }
 
 
