@@ -249,11 +249,32 @@ const postReview = async (req,res) => {
 
 //-------------------PUT-----------------------//
 const updateProduct = async (req, res) => {
-    const body = req.body
+    let {
+        id,
+        name,
+        description, 
+        price, 
+        image,
+        material_id,
+        subCategory_id,
+        category_id
+        } = req.body
+        
+        price = parseInt(price)
+        id = parseInt(id)
+
     try {
-        const updateProduct = await Product.update(body,{
+        const updateProduct = await Product.update({
+            name,
+            description, 
+            price, 
+            image,
+            material_id,
+            subCategory_id,
+            category_id
+        },{
             where:{
-                product_id: body.id
+                product_id: id
             }
         })
 
