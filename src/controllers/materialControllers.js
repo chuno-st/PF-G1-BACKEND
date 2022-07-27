@@ -1,6 +1,5 @@
 const { Material, Color } = require('../db')
 
-
 //-------------------GET-----------------------//
 const getMaterials = async (req, res)=>{
     try {
@@ -13,7 +12,6 @@ const getMaterials = async (req, res)=>{
         res.status(500).json({message: message.error})
     }
 }
-
 
 //-------------------POST-----------------------//
 const createMaterial = async (req, res) => {
@@ -42,8 +40,6 @@ const createMaterial = async (req, res) => {
         return res.status(500).json({ message: error.message })
     }
 }
-
-
 
 //-------------------PUT-----------------------//
 const updateMaterial = async (req, res) => {
@@ -89,8 +85,6 @@ const updateMaterial = async (req, res) => {
     }
 }
 
-
-
 //-------------------DELETE-----------------------//
 const deleteMaterial = async (req,res) => {
     const {id} = req.params
@@ -106,7 +100,6 @@ const deleteMaterial = async (req,res) => {
         return res.status(500).json({ message: error.message })
     }
 }
-
 
 module.exports = {
     getMaterials,
