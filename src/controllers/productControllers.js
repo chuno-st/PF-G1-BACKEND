@@ -1,4 +1,4 @@
-const { Product, Material, Review } = require('../db');
+const { Product, Material, Review, SubCategory, Category } = require('../db');
 const {Op, Model} = require('sequelize');
 
 //-------------------GET-----------------------//
@@ -192,16 +192,37 @@ try {
 
 //-------------------POST-----------------------//
 const createProduct = async (req, res) => {
-    const body = req.body
+    let {
+    name,
+    description, 
+    price, 
+    image,
+    material_id,
+    subCategory_id,
+    category_id
+    } = req.body
+    
+    price = parseInt(price)
+
     try {
-        const newProduct = await Product.create(body)
+        const newProduct = await Product.create({
+            name,
+            description, 
+            price, 
+            image,
+        })
         
-        newProduct.setSubCategory(body.subCategory_id)
-        newProduct.setMaterial(body.material_id)
-        newProduct.setCategory(body.category_id)
-        
+        if (category_id !== ''){
+            newProduct.setCategory(category_id)
+        }
+        if (subCategory_id !== ''){
+            newProduct.setSubCategory(subCategory_id)
+        }
+        if (material_id !== ''){
+            newProduct.setMaterial(material_id)
+        }
+        console.log(req.body)
         res.json(newProduct)
-        
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }

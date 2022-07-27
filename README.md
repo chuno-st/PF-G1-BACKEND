@@ -44,7 +44,7 @@ post.${URL}product/
 {
 name: "",
 description: "",
-price: FLOAT,
+price: "",
 image: "",
 category_id: "",
 subCategory_id: "",
