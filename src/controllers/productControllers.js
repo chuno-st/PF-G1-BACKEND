@@ -1,4 +1,4 @@
-const { Product, Material, Review } = require('../db');
+const { Product, Material, Review} = require('../db');
 const {Op, Model} = require('sequelize');
 
 //-------------------GET-----------------------//
@@ -192,24 +192,37 @@ try {
 
 //-------------------POST-----------------------//
 const createProduct = async (req, res) => {
-    const body = req.body
+    let {
+    name,
+    description, 
+    price, 
+    image,
+    material_id,
+    subCategory_id,
+    category_id
+    } = req.body
+    
+    price = parseInt(price)
+
     try {
-        const newProduct = await Product.create(body)
+        const newProduct = await Product.create({
+            name,
+            description, 
+            price, 
+            image,
+        })
         
-        // let valorSubCategory = body.subCategory_id.toString()
-        //         let valorCategory = body.category_id.toString()
-        //         let valorMaterial = body.body.material_id.toString()
-        
-        //         newProduct.setSubCategory(valorSubCategory)
-        //         newProduct.setCategory(valorCategory)
-        //         newProduct.setMaterial(valorMaterial)
-        
-        newProduct.setSubCategory(body.subCategory_id)
-        newProduct.setMaterial(body.material_id)
-        newProduct.setCategory(body.category_id)
-        
+        if (category_id !== ''){
+            newProduct.setCategory(category_id)
+        }
+        if (subCategory_id !== ''){
+            newProduct.setSubCategory(subCategory_id)
+        }
+        if (material_id !== ''){
+            newProduct.setMaterial(material_id)
+        }
+        console.log(req.body)
         res.json(newProduct)
-        
     } catch (error) {
         console.log("soy el body", body)
         return res.status(500).json({ message: error.message })
@@ -217,7 +230,9 @@ const createProduct = async (req, res) => {
 }
 
 const postReview = async (req,res) => {
-    const {id, comment, author, rating} = req.body
+    let {id, comment, author, rating} = req.body
+    id = parseInt(id)
+    rating = parseInt(rating)
     try {
         const findProduct = await Product.findByPk(id)
 
@@ -237,11 +252,32 @@ const postReview = async (req,res) => {
 
 //-------------------PUT-----------------------//
 const updateProduct = async (req, res) => {
-    const body = req.body
+    let {
+        id,
+        name,
+        description, 
+        price, 
+        image,
+        material_id,
+        subCategory_id,
+        category_id
+        } = req.body
+        
+        price = parseInt(price)
+        id = parseInt(id)
+
     try {
-        const updateProduct = await Product.update(body,{
+        const updateProduct = await Product.update({
+            name,
+            description, 
+            price, 
+            image,
+            material_id,
+            subCategory_id,
+            category_id
+        },{
             where:{
-                product_id: body.id
+                product_id: id
             }
         })
 
