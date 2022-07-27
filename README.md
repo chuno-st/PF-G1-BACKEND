@@ -169,6 +169,12 @@ delete.${URL}favs/:id
 Get Favs (PASAR ID DEL USUARIO POR PARAMS)
 get.${URL}favs/:id
 
+Check Fav (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
+post.${URL}favs/checkfav/:id
+{
+    "product_id": 7
+}
+
 
 //-------------------------USER_ADMIN----------------------/
 
