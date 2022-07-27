@@ -3,9 +3,12 @@ const server = express();
 const routes = require('./routes/index.js');
 const bodyParser = require('body-parser');
 const dotenv = require("dotenv");
+const cors = require("cors");
+const helmet = require("helmet");
+
 require('./db.js');
 
-//const { messagesRouter } = require("./messages/messages.router");
+
 const serverRouter = express.Router();
 
 //server.use(bodyParser.json({ limit: '50mb' }));//middelware
@@ -14,6 +17,8 @@ const serverRouter = express.Router();
 dotenv.config();
 server.use("/api", serverRouter);
 
+server.use(helmet());
+server.use(cors());
 
 server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));

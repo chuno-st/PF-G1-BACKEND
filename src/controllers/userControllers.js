@@ -1,5 +1,6 @@
 const { User } = require('../db')
 
+
 const addUser = async (req, res) => {
     const { id, userName, email } = req.body
     try {
@@ -7,7 +8,7 @@ const addUser = async (req, res) => {
             where: {
                 id,
                 userName,
-                email,
+                email
             }
         })
         res.json(newUser)
@@ -39,20 +40,59 @@ const updateUser = async (req, res) => {
 
     const body = req.body
     try {
-        const updateUser = await User.update(body, {
-            where: {
-                id: body.id
-            }
-        })
+        if (body.isAdmin == undefined || body.isAdmin == null) {
+            const updateUser = await User.update(body, {
+                where: {
+                    id: body.id
+                }
+            })
 
-        res.json(updateUser)
+            res.json(updateUser)
+        } else {
+            throw new Error("no se puede realizar esta modificacion")
+        }
+
     } catch (error) {
         return res.status(500).json({ message: error.message })
+    }
+}
+
+const updateUserAdmin = async (req, res) =>{
+    const {id, isAdmin} = req.body
+    try {
+        const updateIsAdmin = await User.update({isAdmin:isAdmin}, {
+             where: {
+                id: id
+            }
+        })
+        res.json(updateIsAdmin)
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+        
+    }
+}
+
+const deleteUserAdmin = async (req, res) => {
+    const {id} = req.body
+    try {
+        const deleteUserAdmin = await User.destroy({
+            where:{
+                id
+            }
+        })
+        res.json(deleteUserAdmin)
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+        
     }
 }
 
 module.exports = {
     addUser,
     checkRole,
-    updateUser
+    updateUser,
+    updateUserAdmin,
+    deleteUserAdmin
 }
