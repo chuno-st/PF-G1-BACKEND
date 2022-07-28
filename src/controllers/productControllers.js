@@ -2,6 +2,72 @@ const { Product, Material, Review} = require('../db');
 const {Op, Model} = require('sequelize');
 
 //-------------------GET-----------------------//
+
+let borrandoString = (obj) => {
+    let newObj = obj
+    if(newObj.material_id == ""){delete  newObj.material_id }
+    if(newObj.category_id == ""){delete  newObj.category_id }
+    if(newObj.subCategory_id == ""){delete  newObj.subCategory_id }
+    if(newObj.name == ""){delete  newObj.name }
+    if(newObj.max == ""){delete  newObj.max }
+    if(newObj.min == ""){delete  newObj.min }
+    return newObj
+}
+
+
+const getAllFiltered = async (req, res) => {
+    let obj = req.query
+    let newObj = await borrandoString(obj)
+    let max = newObj.max
+    let min = newObj.min
+    delete  newObj.max
+    delete  newObj.min
+    
+    if (typeof max !== "undefined"){
+        try {
+            if(typeof newObj.name !== "undefined"){
+                let aux = newObj.name
+                delete  newObj.name
+    
+                const productByName = await Product.findAll({
+                    where:{[Op.and]: [
+                        newObj,
+                        {price :{
+                            [Op.between]: [min, max]
+                        }}
+                      ]},
+                    include: Review
+                })
+                let filter = productByName.filter(p => p.name.includes(aux))
+                filter.length > 0  ?
+                    res.status(200).json(filter) :
+                    res.status(404).json({message: "Product doesn't exist"})
+            }else{
+    
+                const allProducts = await Product.findAll({
+                    where:{[Op.and]: [
+                        newObj,
+                        {price :{
+                            [Op.between]: [min, max]
+                        }}
+                      ]},
+                    include: Review
+                })
+                res.status(200).json(allProducts)
+            }
+    
+        } catch (error) {
+            return res.status(500).json({ message: error.message })
+        }
+    }else{
+        const allProducts = await Product.findAll({
+            include: Review
+        })
+        res.status(200).json(allProducts)
+    }
+
+}
+
 const getById = async (req, res) => {
     try {
         const { id } = req.params
@@ -99,7 +165,7 @@ const getByMaterial = async (req,res) => {
 
 const getBySubCategory = async (req, res) => {
     const { subcategory, max, min } = req.query
-    
+    console.log(max, min)
     try {
         if(!max && !min && subcategory ){
             const productsBySubCategory = await Product.findAll({
@@ -304,6 +370,7 @@ const deleteProduct = async (req,res) => {
 }
 
 module.exports = {
+    getAllFiltered,
     getByRangePrice,
     createProduct,
     getById,

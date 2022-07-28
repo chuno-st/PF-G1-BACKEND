@@ -33,6 +33,9 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
+Traer productos por query
+${URL}product/allfilter?category_id=${int}&subCategory_id=${str}&material_id=${str}&name=${str}&max=${str}&min=${str}
+
 
 //-------------------------PRODUCTOS----------------------/
 
