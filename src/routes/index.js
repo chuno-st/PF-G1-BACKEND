@@ -7,6 +7,7 @@ const userRoutes = require('./userRoutes');
 const paymentRoutes = require('./paymentRoutes');
 const userFavsRoutes = require('./userFavsRoutes');
 const saleRoutes = require('./saleRoutes');
+const webHooksRoutes = require('./webHooksRoutes')
 
 // Importar todos los routers;
 
@@ -23,6 +24,7 @@ router.use('/payment', paymentRoutes)
 router.use('/material', materialRoutes)
 router.use('/favs', userFavsRoutes)
 router.use('/sales', saleRoutes)
+router.use('/notification', webHooksRoutes)
 
 //setear los router.use para cada ruta
 // router.use('/material', material);
