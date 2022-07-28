@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { payProduct } = require('../controllers/webHooks.Controllers');
+const { payProduct } = require('../controllers/webHooksControllers');
 
 
 const router = Router();

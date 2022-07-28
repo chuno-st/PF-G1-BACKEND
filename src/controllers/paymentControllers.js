@@ -1,6 +1,9 @@
 const axios = require("axios");
 const { User } = require('../db');
 const { saveSale } = require('./salesControllers');
+const { purchaseEmail }= require('../mailer/mailer')
+const deploy_url = process.env.DEPLOY_URL;
+
 
 const paymentMP = async (req, res) => {
 
@@ -44,10 +47,11 @@ const paymentMP = async (req, res) => {
     const body = {
       items: itemsMapeados,
       payer: payerMP,
+      notification_url: `${deploy_url}/notification`,
       back_urls: {
-        failure: "https://pf-g1-frontend-six.vercel.app/",
-        pending: "https://pf-g1-frontend-six.vercel.app/",
-        success: "https://pf-g1-frontend-six.vercel.app/"
+        failure: `${deploy_url}`,
+        pending: `${deploy_url}`,
+        success: `${deploy_url}`
       }
     };
 
@@ -68,17 +72,26 @@ const paymentMP = async (req, res) => {
 
     saveSale(dataSale)
 
+    purchaseEmail(payerMP.email)
+    console.log('email enviado')
 
 
     res.json(payment.data.init_point);
 
   } catch (error) {
-    console.log(items)
     return res.status(500).json({ message: error.message })
+    console.log(items)
   }
 }
 
+const confirmationEmail=(req,res)=>{
+  purchaseEmail(req.user)
+
+  res.json({msg:'Mail enviado correctamente.'})
+}
+
 module.exports = {
-  paymentMP
+  paymentMP,
+  confirmationEmail
 }
 

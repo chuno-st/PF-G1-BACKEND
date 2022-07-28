@@ -21,6 +21,7 @@
     "express-jwt-authz": "^2.4.1",
     "helmet": "^5.1.0",
     "jwks-rsa": "^2.1.4",
+    "nodemailer": "^6.7.7",
     "parser": "^0.1.4",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",

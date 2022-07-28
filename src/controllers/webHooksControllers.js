@@ -2,7 +2,7 @@
 
 const payProduct = async (req, res) => {
      console.log (req.body);
-     res.send("Ok!")
+     res.status(200).send("OK")
 }
 
 module.exports = {
