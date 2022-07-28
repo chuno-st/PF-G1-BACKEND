@@ -34,8 +34,6 @@ Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
 
-
-
 //-------------------------PRODUCTOS----------------------/
 
 
