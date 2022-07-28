@@ -99,7 +99,7 @@ const getByMaterial = async (req,res) => {
 
 const getBySubCategory = async (req, res) => {
     const { subcategory, max, min } = req.query
-    
+    console.log(max, min)
     try {
         if(!max && !min && subcategory ){
             const productsBySubCategory = await Product.findAll({
