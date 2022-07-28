@@ -29,7 +29,7 @@ const {name, limite, desde} = req.query
             })
             productByName ?
                 res.status(200).json(productByName) :
-                res.status(404).json({message: "Product doesn't exist"})
+                res.status(404).json({message: "El producto no existe"})
         }
         else{
             const allProducts = await Product.findAll({
@@ -224,6 +224,7 @@ const createProduct = async (req, res) => {
         console.log(req.body)
         res.json(newProduct)
     } catch (error) {
+        console.log("soy el body", body)
         return res.status(500).json({ message: error.message })
     }
 }
