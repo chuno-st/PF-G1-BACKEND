@@ -179,6 +179,9 @@ post.${URL}favs/checkfav/:id
 
 //-------------------------USER_ADMIN----------------------/
 
+GET ALL USER 
+get.${URL}adduser
+
 Agregar/modificar datos USER  (PASAR POR BODY LOS DATOS DEL USUARIO)
 put.${URL}adduser
 {
