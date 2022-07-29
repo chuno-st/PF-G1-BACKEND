@@ -25,7 +25,7 @@ const paymentMP = async (req, res) => {
   const payerMP = {
     name: user.userName,
     surname: user.userName,
-    //email: user.email,
+    email: user.email,
     phone: {
       number: user.telefono
     },
