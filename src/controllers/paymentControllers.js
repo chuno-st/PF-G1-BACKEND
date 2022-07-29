@@ -2,7 +2,8 @@ const axios = require("axios");
 const { User } = require('../db');
 const { saveSale } = require('./salesControllers');
 const { purchaseEmail }= require('../mailer/mailer')
-const deploy_url = process.env.DEPLOY_URL;
+const deploy_fronturl = process.env.DEPLOY_FRONT_URL;
+const deploy_backurl = process.env.DEPLOY_BACK_URL;
 
 
 const paymentMP = async (req, res) => {
@@ -41,17 +42,17 @@ const paymentMP = async (req, res) => {
   }
 
   try {
-    console.log("info del pagante", payerMP)
+    // console.log("info del pagante", payerMP)
     const url = "https://api.mercadopago.com/checkout/preferences";
 
     const body = {
       items: itemsMapeados,
       payer: payerMP,
-      notification_url: `${deploy_url}/notification`,
+      notification_url: `${deploy_backurl}/notification`,
       back_urls: {
-        failure: `${deploy_url}`,
-        pending: `${deploy_url}`,
-        success: `${deploy_url}`
+        failure: `${deploy_fronturl}`,
+        pending: `${deploy_fronturl}`,
+        success: `${deploy_fronturl}`
       }
     };
 
@@ -73,7 +74,7 @@ const paymentMP = async (req, res) => {
     saveSale(dataSale)
 
     purchaseEmail(payerMP.email)
-    console.log('email enviado')
+    // console.log('email enviado')
 
 
     res.json(payment.data.init_point);
