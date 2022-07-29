@@ -17,7 +17,6 @@ let borrandoString = (obj) => {
     return newObj
 }
 
-
 const getAllFiltered = async (req, res) => {
     let obj = req.query
     let newObj = await borrandoString(obj)
@@ -25,13 +24,11 @@ const getAllFiltered = async (req, res) => {
     let min = newObj.min
     delete  newObj.max
     delete  newObj.min
-    
     if (typeof max !== "undefined"){
         try {
             if(typeof newObj.name !== "undefined"){
                 let aux = newObj.name
                 delete  newObj.name
-    
                 const productByName = await Product.findAll({
                     where:{[Op.and]: [
                         newObj,
@@ -46,7 +43,6 @@ const getAllFiltered = async (req, res) => {
                     res.status(200).json(filter) :
                     res.status(404).json({message: "Product doesn't exist"})
             }else{
-    
                 const allProducts = await Product.findAll({
                     where:{[Op.and]: [
                         newObj,
@@ -58,7 +54,6 @@ const getAllFiltered = async (req, res) => {
                 })
                 res.status(200).json(allProducts)
             }
-    
         } catch (error) {
             return res.status(500).json({ message: error.message })
         }
@@ -66,9 +61,7 @@ const getAllFiltered = async (req, res) => {
         const allProducts = await Product.findAll({
             include: Review
         })
-        res.status(200).json(allProducts)
-    }
-
+        res.status(200).json(allProducts)}
 }
 
 const getById = async (req, res) => {
