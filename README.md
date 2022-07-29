@@ -49,7 +49,9 @@ price: "",
 image: "",
 category_id: "",
 subCategory_id: "",
-material_id: ""
+material_id: "",
+state: true,
+stock: default 0
 }
 
 
@@ -104,10 +106,6 @@ put.${URL}material/
     "color":[]
 }
 
-Eliminar Material (PASAR POR PARAMS ID)
-delete.${URL}material/:id
-
-
 
 
 
@@ -126,8 +124,6 @@ put.${URL}category/
     "name":"Lentes"
 }
 
-Eliminar Category (PASAR ID POR PARAMS )
-delete.${URL}category/:id
 
 
 
@@ -146,10 +142,6 @@ put.${URL}category/
     "id":9,
     "name":"Lentes"
 }
-
-Eliminar SubCategory (PASAR ID POR PARAMS )
-delete.${URL}category/:id
-
 
 
 
@@ -196,7 +188,8 @@ put.${URL}adduser
   "telefono":3,
   "dni":12121212,
   "fecha_nacimiento":"2000-10-24",
-  "genero":"srting"
+  "genero":"srting",
+  "state": true
 }
 
 Modificar isAdmin del User (PASAR POR BODY EL ID DEL USUARIO Y EL BOOLEANO NUEVO DE ISADMIN)

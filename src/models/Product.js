@@ -31,13 +31,25 @@ module.exports = (sequelize) => {
         defaultValue: 0
 
       },
-
       image: {
         type: DataTypes.TEXT,
         allowNull: true,
         defaultValue:null
 
-      }
+      },state:{
+        type: DataTypes.BOOLEAN,
+        default: true,
+       },
+       stock: {
+         type: DataTypes.INTEGER,
+         allowNull: false,
+         default: 0,
+         validate: { checkCant(value) {
+          if (value < 0 ) {
+            throw new Error("no puede haber menos de 0");
+          }
+        } },
+       },
 
 
 

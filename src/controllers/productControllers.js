@@ -11,6 +11,8 @@ let borrandoString = (obj) => {
     if(newObj.name == ""){delete  newObj.name }
     if(newObj.max == ""){delete  newObj.max }
     if(newObj.min == ""){delete  newObj.min }
+    if(newObj.stock == ""){delete  newObj.stock }
+    if(newObj.state == ""){delete  newObj.state }
     return newObj
 }
 
@@ -265,9 +267,12 @@ const createProduct = async (req, res) => {
     image,
     material_id,
     subCategory_id,
-    category_id
+    category_id,
+    stock,
+    state
     } = req.body
-    
+
+    stock = parseInt(stock)
     price = parseInt(price)
 
     try {
@@ -276,6 +281,8 @@ const createProduct = async (req, res) => {
             description, 
             price, 
             image,
+            stock,
+            state
         })
         
         if (category_id !== ''){
@@ -290,7 +297,6 @@ const createProduct = async (req, res) => {
         console.log(req.body)
         res.json(newProduct)
     } catch (error) {
-        console.log("soy el body", body)
         return res.status(500).json({ message: error.message })
     }
 }
@@ -326,9 +332,11 @@ const updateProduct = async (req, res) => {
         image,
         material_id,
         subCategory_id,
-        category_id
+        category_id,
+        state,
+        stock
         } = req.body
-        
+        stock = parseInt(stock)
         price = parseInt(price)
         id = parseInt(id)
 
@@ -340,7 +348,9 @@ const updateProduct = async (req, res) => {
             image,
             material_id,
             subCategory_id,
-            category_id
+            category_id,
+            state,
+            stock
         },{
             where:{
                 product_id: id

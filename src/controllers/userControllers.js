@@ -15,13 +15,14 @@ const getUser = async (req,res) => {
 }
 
 const addUser = async (req, res) => {
-    const { id, userName, email } = req.body
+    const { id, userName, email, picture } = req.body
     try {
         const newUser = await User.findOrCreate({
             where: {
                 id,
                 userName,
-                email
+                email,
+                picture
             }
         })
         res.json(newUser)

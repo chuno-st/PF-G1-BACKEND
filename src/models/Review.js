@@ -24,5 +24,9 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      state:{
+        type: DataTypes.BOOLEAN,
+        default: true,
+       }
     }, { timestamps: true });
   };
