@@ -33,7 +33,8 @@ ${URL}product/rangeprice?min=${int}&max=${int}
 Traer productos por material NOMBRE
 ${URL}product/material?material=${str}
 
-
+Traer productos por query
+${URL}product/allfilter?category_id=${int}&subCategory_id=${str}&material_id=${str}&name=${str}&max=${str}&min=${str}
 
 
 //-------------------------PRODUCTOS----------------------/
@@ -48,21 +49,25 @@ price: "",
 image: "",
 category_id: "",
 subCategory_id: "",
-material_id: ""
+material_id: "",
+state: true,
+stock: default 0
 }
 
 
 Modificar Producto (PASAR POR BODY OBJETO)
-put.${URL}product/
+patch.${URL}product/
 {
-id: INT (obligatorio)
+id: "",
 name: "",
 description: "",
-price: FLOAT,
+price: "",
 image: "",
 category_id: "",
 subCategory_id: "",
-material_id: ""
+material_id: "",
+stock: "",
+state: ""
 }
 
 
@@ -89,23 +94,21 @@ post.${URL}material/
     "name": "marmoldecolores",
     "hardness": "4",
     "purity":"5",
+    "state":"",
     "color":[]
 }
 
 
 Modificar Material (PASAR POR BODY OBJETO)
-put.${URL}material/
+patch.${URL}material/
 {
     "id": 23,
     "name": "marmolNegroCambiadoUltimaVez",
     "hardness": "3",
     "purity":"2",
-    "color":[]
+    "state":"",
+    "color":[""]
 }
-
-Eliminar Material (PASAR POR PARAMS ID)
-delete.${URL}material/:id
-
 
 
 
@@ -119,14 +122,13 @@ post.${URL}category/
 }
 
 Modificar Category (PASAR POR BODY OBJETO)
-put.${URL}category/
+patch.${URL}category/
 {
     "id":9,
-    "name":"Lentes"
-}
+    "name":"Lentes",
+    "state": ""
+    }
 
-Eliminar Category (PASAR ID POR PARAMS )
-delete.${URL}category/:id
 
 
 
@@ -140,15 +142,12 @@ post.${URL}category/
 }
 
 Modificar SubCategory (PASAR POR BODY OBJETO)
-put.${URL}category/
+patch.${URL}category/
 {
     "id":9,
     "name":"Lentes"
+    "state": ""
 }
-
-Eliminar SubCategory (PASAR ID POR PARAMS )
-delete.${URL}category/:id
-
 
 
 
@@ -178,6 +177,9 @@ post.${URL}favs/checkfav/:id
 
 //-------------------------USER_ADMIN----------------------/
 
+GET ALL USER 
+get.${URL}adduser
+
 Agregar/modificar datos USER  (PASAR POR BODY LOS DATOS DEL USUARIO)
 put.${URL}adduser
 {
@@ -192,7 +194,8 @@ put.${URL}adduser
   "telefono":3,
   "dni":12121212,
   "fecha_nacimiento":"2000-10-24",
-  "genero":"srting"
+  "genero":"srting",
+  "state": true
 }
 
 Modificar isAdmin del User (PASAR POR BODY EL ID DEL USUARIO Y EL BOOLEANO NUEVO DE ISADMIN)

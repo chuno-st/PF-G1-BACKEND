@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/', getSubCategories);
 router.post('/', createSubCategory);
-router.put('/', updateSubCategory);
+router.patch('/', updateSubCategory);
 router.delete('/:id', deleteSubCategory);
 
 module.exports = router;

@@ -1,14 +1,28 @@
-const { User } = require('../db')
+const { User, Product } = require('../db')
 
+
+const getUser = async (req,res) => {
+
+    try {
+        const users = await User.findAll({
+            include: Product
+        })
+
+        res.json(users)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
 
 const addUser = async (req, res) => {
-    const { id, userName, email } = req.body
+    const { id, userName, email, picture } = req.body
     try {
         const newUser = await User.findOrCreate({
             where: {
                 id,
                 userName,
-                email
+                email,
+                picture
             }
         })
         res.json(newUser)
@@ -90,6 +104,7 @@ const deleteUserAdmin = async (req, res) => {
 }
 
 module.exports = {
+    getUser,
     addUser,
     checkRole,
     updateUser,

@@ -1,5 +1,5 @@
 const { Material, Color } = require('../db')
-
+const {borrandoString} = require('../Utils/Utils')
 //-------------------GET-----------------------//
 const getMaterials = async (req, res)=>{
     try {
@@ -15,70 +15,51 @@ const getMaterials = async (req, res)=>{
 
 //-------------------POST-----------------------//
 const createMaterial = async (req, res) => {
-    const {name, hardness, purity, color} = req.body
-
-    
+    const body = req.body
+    const newMaterial = await borrandoString(body)
+    let auxColor = newMaterial.color
+    delete newMaterial.color
     try {
-        const newMaterial = await Material.create({
-            name,
-            hardness,
-            purity
-        })
+        const materialCreate = await Material.create(newMaterial)
         
-        const colores = color?.map(async c =>{
+        const colores = auxColor?.map(async c =>{
             let [findColor, validacion] = await Color.findOrCreate({
                 where:{
                     name: c
                 }
             });
-            await newMaterial.addColor(findColor);
+            await materialCreate.addColor(findColor);
         })
-
-        res.json(newMaterial)
-        
+        res.json(materialCreate)
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
 }
 
-//-------------------PUT-----------------------//
+//-------------------PATCH-----------------------//
 const updateMaterial = async (req, res) => {
-    const {id,name, hardness, purity, color} = req.body
-    try {
-        const material = await Material.findByPk(id)
+    const body = req.body
 
-        const updateMaterial = await Material.update({
-            name, 
-            hardness, 
-            purity,
-        },{
+    const newBody = await borrandoString(body)
+    let auxColor = newBody.color
+    delete newBody.color
+
+    try {
+        const material = await Material.findByPk(newBody.id)
+        const updateMaterial = await Material.update(newBody,{
             where:{
-                material_id: id
+                material_id: newBody.id
             }
         })
-
-        if(color.length > 0){
-
-            const objColores = []
-            const colores = color?.map( c =>{
-                return new Promise ( async (resolve, reject) => {
-                    let busca = await Color.findOne({
-                        where:{
-                            name: c
-                        }
-                    });
-    
-                    resolve(objColores.push(busca))
-    
-                    reject(error => next(error))
-                })
+        if(auxColor.length > 0 && auxColor[0] !== ""){
+            allColors = await Color.findAll({
+                where:{
+                    name : auxColor
+                }
             })
-    
-            await Promise.all(colores)
-            material.setColors(objColores)
-
+            material.setColors(allColors)
         }
-        
+
         res.json(updateMaterial)
     } catch (error) {
         return res.status(500).json({ message: error.message })

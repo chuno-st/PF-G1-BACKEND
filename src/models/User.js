@@ -8,11 +8,19 @@ module.exports = (sequelize) => {
         primaryKey: true,
         allowNull: false
       },
+      id_user: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true
+      },
       userName: {
         type: DataTypes.STRING,
         allowNull: false
       },
       email: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      picture: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -65,6 +73,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true
       },
+      state:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+       }
     }, { timestamps: true });
   };
 

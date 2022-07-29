@@ -1,7 +1,55 @@
 const { Product, Material, Review} = require('../db');
 const {Op, Model} = require('sequelize');
-
+const {borrandoString} = require('../Utils/Utils')
 //-------------------GET-----------------------//
+
+const getAllFiltered = async (req, res) => {
+    let obj = req.query
+    let newObj = await borrandoString(obj)
+    let max = newObj.max
+    let min = newObj.min
+    delete  newObj.max
+    delete  newObj.min
+    if (typeof max !== "undefined"){
+        try {
+            if(typeof newObj.name !== "undefined"){
+                let aux = newObj.name
+                delete  newObj.name
+                const productByName = await Product.findAll({
+                    where:{[Op.and]: [
+                        newObj,
+                        {price :{
+                            [Op.between]: [min, max]
+                        }}
+                      ]},
+                    include: Review
+                })
+                let filter = productByName.filter(p => p.name.includes(aux))
+                filter.length > 0  ?
+                    res.status(200).json(filter) :
+                    res.status(404).json({message: "Product doesn't exist"})
+            }else{
+                const allProducts = await Product.findAll({
+                    where:{[Op.and]: [
+                        newObj,
+                        {price :{
+                            [Op.between]: [min, max]
+                        }}
+                      ]},
+                    include: Review
+                })
+                res.status(200).json(allProducts)
+            }
+        } catch (error) {
+            return res.status(500).json({ message: error.message })
+        }
+    }else{
+        const allProducts = await Product.findAll({
+            include: Review
+        })
+        res.status(200).json(allProducts)}
+}
+
 const getById = async (req, res) => {
     try {
         const { id } = req.params
@@ -29,7 +77,7 @@ const {name, limite, desde} = req.query
             })
             productByName ?
                 res.status(200).json(productByName) :
-                res.status(404).json({message: "Product doesn't exist"})
+                res.status(404).json({message: "El producto no existe"})
         }
         else{
             const allProducts = await Product.findAll({
@@ -99,7 +147,7 @@ const getByMaterial = async (req,res) => {
 
 const getBySubCategory = async (req, res) => {
     const { subcategory, max, min } = req.query
-    
+    console.log(max, min)
     try {
         if(!max && !min && subcategory ){
             const productsBySubCategory = await Product.findAll({
@@ -199,9 +247,12 @@ const createProduct = async (req, res) => {
     image,
     material_id,
     subCategory_id,
-    category_id
+    category_id,
+    stock,
+    state
     } = req.body
-    
+
+    stock = parseInt(stock)
     price = parseInt(price)
 
     try {
@@ -210,6 +261,8 @@ const createProduct = async (req, res) => {
             description, 
             price, 
             image,
+            stock,
+            state
         })
         
         if (category_id !== ''){
@@ -249,34 +302,15 @@ const postReview = async (req,res) => {
     }
 }
 
-//-------------------PUT-----------------------//
+//-------------------PATCH-----------------------//
 const updateProduct = async (req, res) => {
-    let {
-        id,
-        name,
-        description, 
-        price, 
-        image,
-        material_id,
-        subCategory_id,
-        category_id
-        } = req.body
-        
-        price = parseInt(price)
-        id = parseInt(id)
+    let body = req.body
+    let newObj = await borrandoString(body)
 
     try {
-        const updateProduct = await Product.update({
-            name,
-            description, 
-            price, 
-            image,
-            material_id,
-            subCategory_id,
-            category_id
-        },{
+        const updateProduct = await Product.update(newObj,{
             where:{
-                product_id: id
+                product_id: newObj.id
             }
         })
 
@@ -303,6 +337,7 @@ const deleteProduct = async (req,res) => {
 }
 
 module.exports = {
+    getAllFiltered,
     getByRangePrice,
     createProduct,
     getById,
