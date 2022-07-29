@@ -13,6 +13,7 @@ let borrandoString = (obj) => {
     if(newObj.min == ""){delete  newObj.min }
     if(newObj.stock == ""){delete  newObj.stock }
     if(newObj.state == ""){delete  newObj.state }
+    if(newObj.price == ""){delete  newObj.price }
     return newObj
 }
 
@@ -322,38 +323,15 @@ const postReview = async (req,res) => {
     }
 }
 
-//-------------------PUT-----------------------//
+//-------------------PATCH-----------------------//
 const updateProduct = async (req, res) => {
-    let {
-        id,
-        name,
-        description, 
-        price, 
-        image,
-        material_id,
-        subCategory_id,
-        category_id,
-        state,
-        stock
-        } = req.body
-        stock = parseInt(stock)
-        price = parseInt(price)
-        id = parseInt(id)
+    let body = req.body
+    let newObj = await borrandoString(body)
 
     try {
-        const updateProduct = await Product.update({
-            name,
-            description, 
-            price, 
-            image,
-            material_id,
-            subCategory_id,
-            category_id,
-            state,
-            stock
-        },{
+        const updateProduct = await Product.update(newObj,{
             where:{
-                product_id: id
+                product_id: newObj.id
             }
         })
 

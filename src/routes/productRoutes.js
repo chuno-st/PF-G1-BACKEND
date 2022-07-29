@@ -13,7 +13,7 @@ router.get('/allfilter', getAllFiltered);
 router.post('/', createProduct);
 router.post('/addreview', postReview)
 
-router.put('/', updateProduct)
+router.patch('/', updateProduct)
 
 router.get('/:id', getById);
 router.delete('/:id', deleteProduct)

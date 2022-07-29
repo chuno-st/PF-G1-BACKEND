@@ -56,16 +56,18 @@ stock: default 0
 
 
 Modificar Producto (PASAR POR BODY OBJETO)
-put.${URL}product/
+patch.${URL}product/
 {
-id: INT (obligatorio)
+id: "",
 name: "",
 description: "",
-price: FLOAT,
+price: "",
 image: "",
 category_id: "",
 subCategory_id: "",
-material_id: ""
+material_id: "",
+stock: "",
+state: ""
 }
 
 
