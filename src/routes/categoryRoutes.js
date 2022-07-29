@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', getCategories);
 router.post('/', createCategory);
-router.put('/', updateCategory);
+router.patch('/', updateCategory);
 router.delete('/:id', deleteCategory);
 
 

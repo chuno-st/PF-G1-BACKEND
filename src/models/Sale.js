@@ -23,7 +23,11 @@ module.exports = (sequelize) => {
     operation_type: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+      state:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      }
   }
     , { timestamps: true });
 };

@@ -94,18 +94,20 @@ post.${URL}material/
     "name": "marmoldecolores",
     "hardness": "4",
     "purity":"5",
+    "state":"",
     "color":[]
 }
 
 
 Modificar Material (PASAR POR BODY OBJETO)
-put.${URL}material/
+patch.${URL}material/
 {
     "id": 23,
     "name": "marmolNegroCambiadoUltimaVez",
     "hardness": "3",
     "purity":"2",
-    "color":[]
+    "state":"",
+    "color":[""]
 }
 
 
@@ -120,11 +122,12 @@ post.${URL}category/
 }
 
 Modificar Category (PASAR POR BODY OBJETO)
-put.${URL}category/
+patch.${URL}category/
 {
     "id":9,
-    "name":"Lentes"
-}
+    "name":"Lentes",
+    "state": ""
+    }
 
 
 
@@ -139,10 +142,11 @@ post.${URL}category/
 }
 
 Modificar SubCategory (PASAR POR BODY OBJETO)
-put.${URL}category/
+patch.${URL}category/
 {
     "id":9,
     "name":"Lentes"
+    "state": ""
 }
 
 

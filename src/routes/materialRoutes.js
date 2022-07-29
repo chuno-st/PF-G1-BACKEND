@@ -6,7 +6,7 @@ router.get('/', getMaterials);
 
 router.post('/', createMaterial);
 
-router.put('/', updateMaterial);
+router.patch('/', updateMaterial);
 
 router.delete('/:id', deleteMaterial);
 module.exports = router;

@@ -1,4 +1,5 @@
 const { Category } = require('../db')
+const {borrandoString} = require('../Utils/Utils')
 
 const getCategories = async (req, res) => {
     try {
@@ -30,13 +31,12 @@ const createCategory = async (req, res) => {
 }
 
 const updateCategory = async (req, res) => {
-    const { id, name } = req.body
+    const body = req.body
+    const newCategory = borrandoString(body)
     try {
-        const updatedCat = await Category.update({
-            name
-        }, {
+        const updatedCat = await Category.update(newCategory, {
             where: {
-                category_id: id
+                category_id: newCategory.id
             }
         })
         res.json(updatedCat)

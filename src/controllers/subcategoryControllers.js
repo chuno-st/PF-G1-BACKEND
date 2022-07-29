@@ -1,5 +1,5 @@
 const { SubCategory } = require('../db')
-
+const {borrandoString} = require('../Utils/Utils')
 const getSubCategories = async (req, res)=>{
     try {
         const allSubCategories = await SubCategory.findAll()
@@ -30,13 +30,12 @@ const createSubCategory = async (req, res) => {
 }
 
 const updateSubCategory = async (req, res) => {
-    const { id, name } = req.body
+    const body = req.body
+    const newSubCategory = await borrandoString(body)
     try {
-        const updatedSubCat = await SubCategory.update({
-            name
-        }, {
-            where: {
-                subCategory_id: id
+        const updatedSubCat = await SubCategory.update(newSubCategory,{
+            where:{
+                subCategory_id: newSubCategory.id
             }
         })
         res.json(updatedSubCat)
