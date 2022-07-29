@@ -160,7 +160,7 @@ post.${URL}favs/:id
 }
 
 Eliminar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
-delete.${URL}favs/:id
+put.${URL}favs/:id
 {
     "product_id": 7
 }
