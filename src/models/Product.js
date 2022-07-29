@@ -38,12 +38,12 @@ module.exports = (sequelize) => {
 
       },state:{
         type: DataTypes.BOOLEAN,
-        default: true,
+        defaultValue: true,
        },
        stock: {
          type: DataTypes.INTEGER,
          allowNull: false,
-         default: 0,
+         defaultValue: 0,
          validate: { checkCant(value) {
           if (value < 0 ) {
             throw new Error("no puede haber menos de 0");
