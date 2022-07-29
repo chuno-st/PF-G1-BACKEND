@@ -6,7 +6,7 @@ const router = Router();
 router.get('/:id', getFavs)
 router.post('/:id', addFav)
 router.post('/checkfav/:id', checkFav)
-router.delete('/:id', deleteFav)
+router.put('/:id', deleteFav)
 
 
 module.exports = router;
