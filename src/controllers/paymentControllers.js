@@ -1,6 +1,7 @@
 const axios = require("axios");
 const { User } = require('../db');
-// const { saveSale } = require('./salesControllers');
+const { saveSale } = require('./salesControllers');
+const { purchaseEmail }= require('../mailer/mailer')
 const deploy_fronturl = process.env.DEPLOY_FRONT_URL;
 const deploy_backurl = process.env.DEPLOY_BACK_URL;
 
@@ -62,17 +63,18 @@ const paymentMP = async (req, res) => {
       }
     });
 
-    // const dataSale = {
-    //   client_id: payment.data.client_id,
-    //   collector_id: payment.data.collector_id,
-    //   sale_id: payment.data.id,
-    //   items: payment.data.items,
-    //   operation_type: payment.data.operation_type
-    // }
+    const dataSale = {
+      client_id: payment.data.client_id,
+      collector_id: payment.data.collector_id,
+      sale_id: payment.data.id,
+      items: payment.data.items,
+      operation_type: payment.data.operation_type
+    }
 
-    // saveSale(dataSale)
+    saveSale(dataSale)
 
-    
+    purchaseEmail(payerMP.email)
+    // console.log('email enviado')
 
 
     res.json(payment.data.init_point);
