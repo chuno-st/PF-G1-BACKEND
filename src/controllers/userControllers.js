@@ -87,21 +87,6 @@ const updateUserAdmin = async (req, res) =>{
     }
 }
 
-const deleteUserAdmin = async (req, res) => {
-    const {id} = req.body
-    try {
-        const deleteUserAdmin = await User.destroy({
-            where:{
-                id
-            }
-        })
-        res.json(deleteUserAdmin)
-
-    } catch (error) {
-        return res.status(500).json({ message: error.message })
-        
-    }
-}
 
 
 
@@ -110,6 +95,5 @@ module.exports = {
     addUser,
     checkRole,
     updateUser,
-    updateUserAdmin,
-    deleteUserAdmin
+    updateUserAdmin
 }

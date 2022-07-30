@@ -237,11 +237,6 @@ put.${URL}adduser/admin/
     "isAdmin": true
 }
 
-Delete User (PASAR ID DEL USUARIO POR BODY)
-delete.${URL}adduser/admin/
-{
-    "id":"google-oauth2|1.-.-.-.-.-.-.-5",
-}
 
 
 ------------------------------------------------------------------------------------
