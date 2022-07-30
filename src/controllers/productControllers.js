@@ -20,6 +20,59 @@ const getAllFiltered = async (req, res) => {
                         newObj,
                         {price :{
                             [Op.between]: [min, max]
+                        }},
+                        {state: true}
+                      ]},
+                    include: Review
+                })
+                let filter = productByName.filter(p => p.name.includes(aux))
+                filter.length > 0  ?
+                    res.status(200).json(filter) :
+                    res.status(404).json({message: "Product doesn't exist"})
+            }else{
+                const allProducts = await Product.findAll({
+                    where:{[Op.and]: [
+                        newObj,
+                        {price :{
+                            [Op.between]: [min, max]
+                        }},
+                        {state: true}
+                      ]},
+                    include: Review
+                })
+                res.status(200).json(allProducts)
+            }
+        } catch (error) {
+            return res.status(500).json({ message: error.message })
+        }
+    }else{
+        const allProducts = await Product.findAll({
+            where: {
+                state: true
+            },
+            include: Review
+        })
+        res.status(200).json(allProducts)}
+}
+
+//-------------------GETADMIN-----------------------//
+const getAllFilteredAdmin = async (req, res) => {
+    let obj = req.query
+    let newObj = await borrandoString(obj)
+    let max = newObj.max
+    let min = newObj.min
+    delete  newObj.max
+    delete  newObj.min
+    if (typeof max !== "undefined"){
+        try {
+            if(typeof newObj.name !== "undefined"){
+                let aux = newObj.name
+                delete  newObj.name
+                const productByName = await Product.findAll({
+                    where:{[Op.and]: [
+                        newObj,
+                        {price :{
+                            [Op.between]: [min, max]
                         }}
                       ]},
                     include: Review
@@ -50,10 +103,26 @@ const getAllFiltered = async (req, res) => {
         res.status(200).json(allProducts)}
 }
 
-const getById = async (req, res) => {
+const getByIdAdmin = async (req, res) => {
     try {
         const { id } = req.params
         const producto = await Product.findByPk(id,{
+            include: Review,
+        })
+        res.json(producto)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+const getById = async (req, res) => {
+    try {
+        const { id } = req.params
+        const producto = await Product.findOne({
+            where: {
+                product_id: id,
+                state: true
+            },
             include: Review,
         })
         res.json(producto)
@@ -71,7 +140,8 @@ const {name, limite, desde} = req.query
                 where: {
                     name: {
                     [Op.iLike]: `%${name}%`,
-                    }
+                    },
+                    state: true
                 },
                 include: Review
             })
@@ -81,6 +151,9 @@ const {name, limite, desde} = req.query
         }
         else{
             const allProducts = await Product.findAll({
+                where:{
+                    state: true
+                },
                 include: Review
             })
             res.status(200).json(allProducts)
@@ -100,7 +173,8 @@ const getByRangePrice = async (req,res) => {
                 where: {
                     price :{
                         [Op.between]: [min, max]
-                    }
+                    },
+                    state: true
                 },
                 include: Review
                 })
@@ -108,6 +182,9 @@ const getByRangePrice = async (req,res) => {
                 
             }else{
                 const products = await Product.findAll({
+                    where: {
+                        state: true
+                    },
                     include: Review,
                 })
             res.json(products)
@@ -126,7 +203,8 @@ const getByMaterial = async (req,res) => {
                 include: [{
                     attributes: ['name'],
                     model: Material,
-                    where: { name: material } 
+                    where: { name: material,
+                        state: true } 
                 },{
                     model: Review
                 }]
@@ -135,6 +213,9 @@ const getByMaterial = async (req,res) => {
         }
         else{
             const products = await Product.findAll({
+                where: {
+                    state: true
+                },
                 include: Review
             })
             res.json(products)
@@ -153,6 +234,7 @@ const getBySubCategory = async (req, res) => {
             const productsBySubCategory = await Product.findAll({
                 where: {
                     subCategory_id: subcategory,
+                    state: true
                 },
                 include: Review
             });
@@ -162,6 +244,7 @@ const getBySubCategory = async (req, res) => {
             const productsBySubCategory = await Product.findAll({
                 where: {
                     subCategory_id: subcategory,
+                    state: true,
                     price :{
                         [Op.between]: [min, max]
                     }
@@ -172,6 +255,9 @@ const getBySubCategory = async (req, res) => {
         }
         else{
             const products = await Product.findAll({
+                where: {
+                    state: true
+                },
                 include: Review
             })
             res.json(products)
@@ -189,6 +275,9 @@ const getProductsOrder = async (req, res) => {
             case "price":
                 if (order === "ASC" || order === "DESC") {
                     const productsOrderByPrice = await Product.findAll({
+                        where: {
+                            state: true
+                        },
                         order: [[orderBy, order]],
                         offset: desde,
                         limit: limite,
@@ -201,7 +290,10 @@ const getProductsOrder = async (req, res) => {
                 case "name":
                     if (order === "ASC" || order === "DESC") {
                         const productsOrderByABC = await Product.findAll({
-                            order: [[orderBy, order]],
+                        where: {
+                            state: true
+                        },
+                        order: [[orderBy, order]],
                         offset: desde,
                         limit: limite,
                         include: Review
@@ -214,6 +306,9 @@ const getProductsOrder = async (req, res) => {
             default:
                     
                 const products = await Product.findAll({
+                    where:{
+                        state: true
+                    },
                     offset: desde,
                     limit: limite,
                     include: Review
@@ -227,16 +322,6 @@ const getProductsOrder = async (req, res) => {
     }
 }
 
-//Unicamente para PROBAR
-const getPagination = async (req, res) => {
-    const {desde, limite} = req.query
-try {
-    const paginado = await Product.findAll({ offset: desde, limit: limite });
-    res.json(paginado)
-} catch (error) {
-    return res.status(500).json({ message: error.message })
-}
-}
 
 //-------------------POST-----------------------//
 const createProduct = async (req, res) => {
@@ -321,10 +406,11 @@ const updateProduct = async (req, res) => {
 }
 
 //-------------------DELETE-----------------------//
-const deleteProduct = async (req,res) => {
+const stateProduct = async (req,res) => {
     const {id} = req.params
+    const {state} = req.query
     try {
-        const deleteProduct = await Product.destroy({
+        const deleteProduct = await Product.update({state},{
             where:{
                 product_id:id
             }
@@ -337,6 +423,8 @@ const deleteProduct = async (req,res) => {
 }
 
 module.exports = {
+    getByIdAdmin,
+    getAllFilteredAdmin,
     getAllFiltered,
     getByRangePrice,
     createProduct,
@@ -344,9 +432,8 @@ module.exports = {
     getProductsOrder,
     getBySubCategory,
     getProduct,
-    getPagination,
     getByMaterial,
     updateProduct,
-    deleteProduct,
+    stateProduct,
     postReview
 }

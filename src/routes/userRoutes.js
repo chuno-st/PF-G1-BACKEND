@@ -10,4 +10,5 @@ router.put('/admin' , updateUserAdmin);
 router.get('/checkrole', checkRole);
 router.delete('/admin', deleteUserAdmin);
 
+
 module.exports = router;

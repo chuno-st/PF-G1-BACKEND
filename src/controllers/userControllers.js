@@ -1,5 +1,5 @@
 const { User, Product } = require('../db')
-
+const axios = require("axios");
 
 const getUser = async (req,res) => {
 
@@ -102,6 +102,8 @@ const deleteUserAdmin = async (req, res) => {
         
     }
 }
+
+
 
 module.exports = {
     getUser,

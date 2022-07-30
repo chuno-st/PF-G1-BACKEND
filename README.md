@@ -70,11 +70,24 @@ stock: "",
 state: ""
 }
 
+traer todos los productos CON O SIN FILTRADOS
+get.{URL}/product/admin TODOS VALORES POR QUERY
+{
+    name: "",
+    category_id: "",
+    subCategory_id: "",
+    material_id:"",
+    max: "",
+    min: ""
+}
+
+get.{URL}/product/admin/:id (product)
 
 Eliminar Producto (PASAR POR PARAMS ID)
 delete.${URL}product/:id
 
 
+//ES DE USER
 Agregar comentario a producto (PASAR {id, comment, author, rating} POR BODY)
 post.${URL}product/addreview
 {
@@ -110,8 +123,14 @@ patch.${URL}material/
     "color":[""]
 }
 
+Revisir todos los materiales 
+get.${URL}material/admin
 
 
+Desactivar material
+delete.${URL}material/id=${id_producto}?state=${true o false}
+id por params
+stado por body
 
 //---------------------------CATEGORY------------------------/
 
@@ -127,10 +146,16 @@ patch.${URL}category/
     "id":9,
     "name":"Lentes",
     "state": ""
-    }
+}
+
+Revisir todos los materiales 
+get.${URL}category/admin
 
 
-
+Desactivar category
+delete.${URL}category/id=${id_producto}?state=${true o false}
+id por params
+stado por body
 
 
 //-------------------------SUB-CATEGORY----------------------/
@@ -149,9 +174,16 @@ patch.${URL}category/
     "state": ""
 }
 
+Revisir todos las subCategory 
+get.${URL}subcategory/admin
 
 
-//-------------------------USER_FAVS----------------------/
+Desactivar subcategory
+delete.${URL}subcategory/id=${id_producto}?state=${true o false}
+id por params
+stado por body
+
+//-------------------------USER_FAVS----------------------/TODO USER
 
 Agregar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
 post.${URL}favs/:id
@@ -180,7 +212,7 @@ post.${URL}favs/checkfav/:id
 GET ALL USER 
 get.${URL}adduser
 
-Agregar/modificar datos USER  (PASAR POR BODY LOS DATOS DEL USUARIO)
+Agregar/modificar datos USER  (PASAR POR BODY LOS DATOS DEL USUARIO)//USER
 put.${URL}adduser
 {
   "id":"google-oauth2|1-.-.-.-.-.-.5",    

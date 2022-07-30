@@ -1,7 +1,23 @@
 const { Material, Color } = require('../db')
 const {borrandoString} = require('../Utils/Utils')
 //-------------------GET-----------------------//
+
 const getMaterials = async (req, res)=>{
+    try {
+        const allMaterials = await Material.findAll({
+            where: {
+                state: true
+            },
+            include: Color,
+        })
+        console.log("funcion get")
+        res.json(allMaterials)
+    } catch (error) {
+        res.status(500).json({message: message.error})
+    }
+}
+
+const getMaterialsAdmin = async (req, res)=>{
     try {
         const allMaterials = await Material.findAll({
             include: Color,
@@ -12,7 +28,6 @@ const getMaterials = async (req, res)=>{
         res.status(500).json({message: message.error})
     }
 }
-
 //-------------------POST-----------------------//
 const createMaterial = async (req, res) => {
     const body = req.body
@@ -67,10 +82,11 @@ const updateMaterial = async (req, res) => {
 }
 
 //-------------------DELETE-----------------------//
-const deleteMaterial = async (req,res) => {
+const stateMaterial = async (req,res) => {
     const {id} = req.params
+    const {state} = req.query
     try {
-        const deleteMaterial = await Material.destroy({
+        const deleteMaterial = await Material.update({state},{
             where:{
                 material_id:id
             }
@@ -83,8 +99,9 @@ const deleteMaterial = async (req,res) => {
 }
 
 module.exports = {
+    getMaterialsAdmin,
     getMaterials,
     createMaterial,
     updateMaterial,
-    deleteMaterial
+    stateMaterial
 }

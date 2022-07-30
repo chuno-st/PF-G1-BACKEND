@@ -3,6 +3,19 @@ const {borrandoString} = require('../Utils/Utils')
 
 const getCategories = async (req, res) => {
     try {
+        const allCategories = await Category.findAll({
+            where:{
+                state: true
+            }
+        })
+        res.json(allCategories)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+const getCategoriesAdmin = async (req, res) => {
+    try {
         const allCategories = await Category.findAll()
         res.json(allCategories)
     } catch (error) {
@@ -45,10 +58,11 @@ const updateCategory = async (req, res) => {
     }
 }
 
-const deleteCategory = async (req, res) => {
-    const { id } = req.params
+const stateCategory = async (req, res) => {
+    const {id} = req.params
+    const { state } = req.query
     try {
-        const deletedCat = await Category.destroy({
+        const deletedCat = await Category.update({state},{
             where: {
                 category_id: id
             }
@@ -60,8 +74,9 @@ const deleteCategory = async (req, res) => {
 }
 
 module.exports = {
+    getCategoriesAdmin,
     getCategories,
     createCategory,
     updateCategory,
-    deleteCategory
+    stateCategory
 }
