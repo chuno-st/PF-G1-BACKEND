@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { User } = require('../db');
 const { saveSale } = require('./salesControllers');
-// const { purchaseEmail }= require('../mailer/mailer')
+const { purchaseEmail }= require('../mailer/mailer')
 const deploy_fronturl = process.env.DEPLOY_FRONT_URL;
 const deploy_backurl = process.env.DEPLOY_BACK_URL;
 
@@ -73,8 +73,8 @@ const paymentMP = async (req, res) => {
 
     saveSale(dataSale)
 
-    // purchaseEmail(payerMP.email)
-    // // console.log('email enviado')
+    purchaseEmail(payerMP.email)
+    // console.log('email enviado')
 
 
     res.json(payment.data.init_point);
@@ -85,14 +85,14 @@ const paymentMP = async (req, res) => {
   }
 }
 
-// const confirmationEmail=(req,res)=>{
-//   purchaseEmail(req.user)
+const confirmationEmail=(req,res)=>{
+  purchaseEmail(req.user)
 
-//   res.json({msg:'Mail enviado correctamente.'})
-// }
+  res.json({msg:'Mail enviado correctamente.'})
+}
 
 module.exports = {
   paymentMP,
-  // confirmationEmail
+  confirmationEmail
 }
 
