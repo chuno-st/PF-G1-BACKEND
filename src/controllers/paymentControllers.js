@@ -2,7 +2,7 @@ const axios = require("axios");
 const { User } = require('../db');
 const deploy_fronturl = process.env.DEPLOY_FRONT_URL;
 const deploy_backurl = process.env.DEPLOY_BACK_URL;
-const { purchaseEmail }= require('../mailer/mailer');
+
 
 
 const paymentMP = async (req, res) => {
@@ -46,7 +46,7 @@ const paymentMP = async (req, res) => {
     const body = {
       items: itemsMapeados,
       payer: payerMP,
-      notification_url: `${deploy_backurl}/notification`,
+      notification_url: `${deploy_backurl}notification`,
       back_urls: {
         failure: `${deploy_fronturl}`,
         pending: `${deploy_fronturl}`,
@@ -61,7 +61,6 @@ const paymentMP = async (req, res) => {
       }
     });
 
-      //purchaseEmail(payerMP.email)
 
     res.json(payment.data.init_point);
 
