@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { User } = require('../db');
+const { User } = require('../db')
 const deploy_fronturl = process.env.DEPLOY_FRONT_URL;
 const deploy_backurl = process.env.DEPLOY_BACK_URL;
 
