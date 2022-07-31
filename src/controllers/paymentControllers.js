@@ -61,8 +61,7 @@ const paymentMP = async (req, res) => {
       }
     });
 
-    console.log(payment.data)
-    res.json(payment.data.init_point);
+    res.json(payment.data);
 
   } catch (error) {
     return res.status(500).json({ message: error.message })
