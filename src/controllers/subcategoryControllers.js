@@ -1,6 +1,20 @@
 const { SubCategory } = require('../db')
 const {borrandoString} = require('../Utils/Utils')
+
 const getSubCategories = async (req, res)=>{
+    try {
+        const allSubCategories = await SubCategory.findAll({
+            where: {
+                state: true
+            }
+        })
+        res.json(allSubCategories)
+    } catch (error) {
+        res.status(500).json({message: message.error})
+    }
+}
+
+const getSubCategoriesAdmin = async (req, res)=>{
     try {
         const allSubCategories = await SubCategory.findAll()
         res.json(allSubCategories)
@@ -44,10 +58,11 @@ const updateSubCategory = async (req, res) => {
     }
 }
 
-const deleteSubCategory = async (req, res) => {
+const stateSubCategory = async (req, res) => {
     const { id } = req.params
+    const { state } = req.query
     try {
-        const deletedSubCat = await SubCategory.destroy({
+        const deletedSubCat = await SubCategory.update({state},{
             where: {
                 subCategory_id: id
             }
@@ -59,8 +74,9 @@ const deleteSubCategory = async (req, res) => {
 }
 
 module.exports = {
+    getSubCategoriesAdmin,
     getSubCategories,
-    deleteSubCategory,
+    stateSubCategory,
     createSubCategory,
     updateSubCategory
 }
