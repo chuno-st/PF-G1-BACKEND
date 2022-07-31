@@ -1,9 +1,9 @@
 //const { saveSale } = require('./salesControllers');
 //const { purchaseEmail }= require('../mailer/mailer');
 
-const payProduct = async (obj) => {
-
-    console.log(obj.doby)
+const payProduct = async (req,res) => {
+    console.log("aca empieza",req.body, "aca termina")
+    console.log("req solo", req)
      res.status(200).send("OK")
 }
 
