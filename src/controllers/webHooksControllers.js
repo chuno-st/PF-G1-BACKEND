@@ -25,7 +25,7 @@ const dataBody = req.body
       status: payment.data.status,
       monto: payment.data.transaction_amount,
       montoTotal: payment.data.transaction_details.total_paid_amount,
-      items: payment.data.items
+      items: payment.data.additional_info.items
     })
     
     const email = payment.data.metadata.email
