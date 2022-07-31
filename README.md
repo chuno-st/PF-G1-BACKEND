@@ -15,7 +15,7 @@ ${URL}product
 Si hay parametros trae los que contengan ese nombre, sino trae a todos.
 ${URL}product?name=${str}
 
-Trae producto por ID, sino trae todo
+Trae producto por ID, sino trae tod
 ${URL}product/{id}
 
 filtra por subcategory y rango de precio si faltan parametros devuelve todo
