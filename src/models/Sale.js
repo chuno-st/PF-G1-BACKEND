@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     items: {
-      type: DataTypes.STRING,  // [{}]
+      type: DataTypes.STRING, 
       allowNull: false,
     },
     operation_type: {
