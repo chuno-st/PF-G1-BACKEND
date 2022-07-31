@@ -60,8 +60,8 @@ const paymentMP = async (req, res) => {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
       }
     });
-
-    res.json(payment.data);
+    console.log(payment.data)
+    res.json(payment.data.init_point);
 
   } catch (error) {
     return res.status(500).json({ message: error.message })
