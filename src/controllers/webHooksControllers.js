@@ -2,10 +2,11 @@
 const { purchaseEmail }= require('../mailer/mailer');
 
 const payProduct = async (req, res) => {
-     console.log("se envio mail")
+    console.log(req.body)
+    console.log("se envio mail")
     const email = 'ferreyralautaro69@gmail.com'
     purchaseEmail(email)
-
+    
      res.status(200).send("OK")
 }
 
