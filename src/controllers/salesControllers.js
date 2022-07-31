@@ -11,6 +11,16 @@ const saveSale = async (req) => {
 
 } 
 
+const getSales = async (req,res) => {
+    try {
+        const sales = await Sale.findAll()
+        res.json(sales)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 module.exports = {
-    saveSale
+    saveSale,
+    getSales
 }
