@@ -61,7 +61,7 @@ const paymentMP = async (req, res) => {
       }
     });
 
-      purchaseEmail(payerMP.email)
+      //purchaseEmail(payerMP.email)
 
     res.json(payment.data.init_point);
 
