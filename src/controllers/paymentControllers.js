@@ -51,7 +51,8 @@ const paymentMP = async (req, res) => {
         failure: `${deploy_fronturl}`,
         pending: `${deploy_fronturl}`,
         success: `${deploy_fronturl}`
-      }
+      },
+      metadata: {sub: user.id}
     };
 
     const payment = await axios.post(url, body, {
