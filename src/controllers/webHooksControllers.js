@@ -4,7 +4,7 @@ const { Sale, User } = require('../db')
 const { purchaseEmail }= require('../mailer/mailer');
 
 const payProduct = async (req,res) => {
-  console.log("ID VENTA", req.body.data.id)
+  console.log("ID VENTA", req.body)
     const idVenta = req.body.data.id
 
     const payment = await axios.get(`https://api.mercadopago.com/v1/payments/${idVenta}`, {
