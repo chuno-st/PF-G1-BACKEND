@@ -4,30 +4,28 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Sale', {
 
-    client_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    collector_id: {
+    id: {
       type: DataTypes.BIGINT,
+      primaryKey: true,
       allowNull: false,
     },
-    sale_id: {
-      type: DataTypes.STRING,
+    status: {
+      type: DataTypes.ENUM('approved','dispatch','ANULED'),
+      defaultValue: "ANULED",
+      allowNull: false,
+    },
+    monto: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    montoTotal: {
+      type: DataTypes.FLOAT, 
       allowNull: false,
     },
     items: {
-      type: DataTypes.STRING, 
+      type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: false,
     },
-    operation_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-      state:{
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-      }
   }
     , { timestamps: true });
 };

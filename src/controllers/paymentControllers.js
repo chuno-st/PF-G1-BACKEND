@@ -52,7 +52,7 @@ const paymentMP = async (req, res) => {
         pending: `${deploy_fronturl}`,
         success: `${deploy_fronturl}`
       },
-      metadata: {sub: user.id}
+      metadata: {sub: user.id, email: user.email}
     };
 
     const payment = await axios.post(url, body, {
