@@ -3,7 +3,7 @@
 
 const payProduct = async (obj) => {
 
-    console.log(obj)
+    console.log(obj.doby)
      res.status(200).send("OK")
 }
 
