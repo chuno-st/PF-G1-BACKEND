@@ -71,7 +71,7 @@ state: ""
 }
 
 
-Eliminar Producto (PASAR POR PARAMS ID)
+Eliminar Producto (PASAR POR PARAMS ID
 delete.${URL}product/:id
 
 
