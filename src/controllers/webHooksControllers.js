@@ -1,12 +1,9 @@
 //const { saveSale } = require('./salesControllers');
-const { purchaseEmail }= require('../mailer/mailer');
+//const { purchaseEmail }= require('../mailer/mailer');
 
-const payProduct = async (req, res) => {
-    console.log(req.body)
-    console.log("se envio mail")
-    const email = 'ferreyralautaro69@gmail.com'
-    purchaseEmail(email)
-    
+const payProduct = async (obj) => {
+
+    console.log(obj)
      res.status(200).send("OK")
 }
 
