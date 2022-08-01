@@ -101,6 +101,7 @@ post.${URL}product/addreview
 
 //-------------------------MATERIAL----------------------/
 
+
 Crear Material  (PASAR POR BODY OBJETO)
 post.${URL}material/
 {
@@ -132,7 +133,9 @@ delete.${URL}material/id=${id_producto}?state=${true o false}
 id por params
 stado por body
 
+
 //---------------------------CATEGORY------------------------/
+
 
 Crear Category  (PASAR POR BODY OBJETO)
 post.${URL}category/
@@ -160,6 +163,7 @@ stado por body
 
 //-------------------------SUB-CATEGORY----------------------/
 
+
 Crear SubCategory  (PASAR POR BODY OBJETO)
 post.${URL}category/
 {
@@ -183,7 +187,9 @@ delete.${URL}subcategory/id=${id_producto}?state=${true o false}
 id por params
 stado por body
 
+
 //-------------------------USER_FAVS----------------------/TODO USER
+
 
 Agregar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
 post.${URL}favs/:id
@@ -209,6 +215,7 @@ post.${URL}favs/checkfav/:id
 
 //-------------------------USER_ADMIN----------------------/
 
+
 GET ALL USER 
 get.${URL}adduser
 
@@ -231,11 +238,27 @@ put.${URL}adduser
 }
 
 Modificar isAdmin del User (PASAR POR BODY EL ID DEL USUARIO Y EL BOOLEANO NUEVO DE ISADMIN)
-put.${URL}adduser/admin/
+patch.${URL}adduser/admin/
 {
     "id":"google-oauth2|1.-.-.-.-.-.-.-5",
     "isAdmin": true
 }
+
+
+//------------------------- SALES ----------------------/
+
+
+GET ALL SALES
+get.${URL}sales
+
+Modificar Status de la Compra (PASAR POR BODY EL ID DE LA COMPRA Y EL NUEVO STATUS "dispatch" o "ANULED")
+patch.${URL}sales
+{
+    "id":1304403323,
+    "status":"ANULED"
+}
+
+
 
 
 

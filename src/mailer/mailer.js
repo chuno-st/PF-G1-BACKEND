@@ -34,7 +34,67 @@ const purchaseEmail = (user) => {
 
 };
 
+const dispatchedEmail = (user) => {
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: email,
+            pass: pass
+        }
+    });
+    return transporter.sendMail({
+        from: 'Henry Diamonds App <henrydiamons@gmail.com>',
+        to: user,
+        subject: "Tu pedido está en camino",
+        html: `
+      <center>
+      <hr/>
+      <h2>Seguimiento de la compra</h2> 
+      <br/>
+      <h4>Tu queríamos avisar que tu pedido ya está en camino</h4>
+      <h4>Que lo disfrutes!</h4>
+      <img src="" width="600px" height="150px" />
+      <hr/>
+      </center>
+      `
+    }).then(() => user)
+
+};
+
+const anuledEmail = (user) => {
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: email,
+            pass: pass
+        }
+    });
+    return transporter.sendMail({
+        from: 'Henry Diamonds App <henrydiamons@gmail.com>',
+        to: user,
+        subject: "Tu pedido fue cancelado",
+        html: `
+      <center>
+      <hr/>
+      <h2>Seguimiento de la compra</h2> 
+      <br/>
+      <h4>Tu queríamos avisar que tu pedido fue cancelado</h4>
+      <h4>Lo lamentamos!</h4>
+      <img src="" width="600px" height="150px" />
+      <hr/>
+      </center>
+      `
+    }).then(() => user)
+
+};
+
 
 module.exports = {
-    purchaseEmail
+    purchaseEmail,
+    dispatchedEmail,
+    anuledEmail
 }
