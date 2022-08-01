@@ -37,7 +37,12 @@ const paymentMP = async (req, res) => {
       street_name: user.calle,
       street_number: user.direccion,
       zip_code: user.codigo_postal
+    }/*
+    shipments: {
+    receiver_address: {
+      
     }
+  } */
   }
 
   try {
