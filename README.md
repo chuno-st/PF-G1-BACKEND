@@ -231,7 +231,7 @@ put.${URL}adduser
 }
 
 Modificar isAdmin del User (PASAR POR BODY EL ID DEL USUARIO Y EL BOOLEANO NUEVO DE ISADMIN)
-put.${URL}adduser/admin/
+patch.${URL}adduser/admin/
 {
     "id":"google-oauth2|1.-.-.-.-.-.-.-5",
     "isAdmin": true

@@ -6,7 +6,7 @@ const router = Router();
 router.get('/', getUser)
 router.post('/', addUser);
 router.put('/' , updateUser);
-router.put('/admin' , updateUserAdmin);
+router.patch('/admin' , updateUserAdmin);
 router.get('/checkrole', checkRole);
 
 
