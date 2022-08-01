@@ -1,4 +1,5 @@
 const { Sale, User } = require('../db')
+const {Op} = require('sequelize')
 const { dispatchedEmail, anuledEmail } = require('../mailer/mailer');
 
 
@@ -100,7 +101,7 @@ const filterByOrderDate = async (req, res) => {
     const { orderDate } = req.query;
     try {
         const filteredOrderDate = await Sale.findAll({
-            orderDate: [["createdAt", orderDate]]
+            order: [["createdAt", orderDate]]
         })
         res.json(filteredOrderDate)
     } catch (error) {
@@ -109,10 +110,15 @@ const filterByOrderDate = async (req, res) => {
 }
 
 const filterByRangeDate = async (req, res) => {
-    const { rangeDate } = req.query;
+    const { desde, hasta } = req.query;
     try {
-
-        res.json()
+        const filteredByRange = await Sale.findAll({
+            where:{
+                createdAt :{
+                    [Op.between]: [desde, hasta]
+                }
+              }})
+        res.json(filteredByRange)
 
     } catch (error) {
         return res.status(500).json({ message: error.message })

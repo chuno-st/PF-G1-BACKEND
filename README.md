@@ -265,14 +265,24 @@ patch.${URL}sales
     "status":"ANULED"
 }
 
-
 traer todos los productos comprados por el usuario
 get.{URL}sales/user/:id
 
 
+Filter x Status (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/order?order=DESC
 
 
+Filter x Order Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/status?status=approved
 
+
+Filter x Order Date Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/orderDate?orderDate=ASC
+
+
+Filter x Order Range Date Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/rangeDate?desde=2022-07-31&hasta=2022-08-02
 
 
 ------------------------------------------------------------------------------------
