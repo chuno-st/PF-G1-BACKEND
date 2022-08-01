@@ -390,12 +390,13 @@ const postReview = async (req,res) => {
 //-------------------PATCH-----------------------//
 const updateProduct = async (req, res) => {
     let body = req.body
+    console.log(body)
     let newObj = await borrandoString(body)
 
     try {
         const updateProduct = await Product.update(newObj,{
             where:{
-                product_id: newObj.id
+                product_id: newObj.product_id
             }
         })
 
