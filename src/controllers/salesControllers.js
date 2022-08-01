@@ -47,7 +47,6 @@ const updateStatus = async (req, res) => {
                     id: body.id
                 },
             })
-            // console.log(sale.dataValues.Users[0].email)
             anuledEmail(sale.dataValues.Users[0].email)
             res.json(updatedStatus)
         }
@@ -56,8 +55,22 @@ const updateStatus = async (req, res) => {
     }
 }
 
+const getUserSales = async (req, res) => {
+    const { id } = req.params
+    try {
+        const userSales = await User.findByPk(id, {
+            include: [{ model: Sale }]
+        }
+        )
+        res.json(userSales)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 module.exports = {
     saveSale,
     getSales,
-    updateStatus
+    updateStatus,
+    getUserSales
 }
