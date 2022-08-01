@@ -87,13 +87,10 @@ const updateUserAdmin = async (req, res) =>{
     }
 }
 
-
-
-
 module.exports = {
     getUser,
     addUser,
     checkRole,
     updateUser,
-    updateUserAdmin
+    updateUserAdmin,
 }

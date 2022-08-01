@@ -3,12 +3,10 @@ const { addUser, checkRole, updateUser, updateUserAdmin, getUser } = require('..
 
 const router = Router();
 
-router.get('/', getUser)
+router.get('/', getUser);
 router.post('/', addUser);
 router.put('/' , updateUser);
 router.patch('/admin' , updateUserAdmin);
 router.get('/checkrole', checkRole);
-
-
 
 module.exports = router;

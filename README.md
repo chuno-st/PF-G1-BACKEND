@@ -37,6 +37,9 @@ Traer productos por query
 ${URL}product/allfilter?category_id=${int}&subCategory_id=${str}&material_id=${str}&name=${str}&max=${str}&min=${str}
 
 
+
+
+
 //-------------------------PRODUCTOS----------------------/
 
 
@@ -71,7 +74,7 @@ state: ""
 }
 
 traer todos los productos CON O SIN FILTRADOS
-get.{URL}/product/admin TODOS VALORES POR QUERY
+get.{URL}product/admin TODOS VALORES POR QUERY
 {
     name: "",
     category_id: "",
@@ -81,7 +84,7 @@ get.{URL}/product/admin TODOS VALORES POR QUERY
     min: ""
 }
 
-get.{URL}/product/admin/:id (product)
+get.{URL}product/admin/:id (product)
 
 Eliminar Producto (PASAR POR PARAMS ID
 delete.${URL}product/:id
@@ -257,6 +260,12 @@ patch.${URL}sales
     "id":1304403323,
     "status":"ANULED"
 }
+
+
+traer todos los productos comprados por el usuario
+get.{URL}sales/user/:id
+
+
 
 
 
