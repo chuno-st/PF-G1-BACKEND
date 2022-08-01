@@ -37,7 +37,11 @@ Traer productos por query
 ${URL}product/allfilter?category_id=${int}&subCategory_id=${str}&material_id=${str}&name=${str}&max=${str}&min=${str}
 
 
+//-------------------------USER----------------------/
 
+
+GET USER BY ID - Traer Usuario por ID (pasar id "sub" por params)
+get.${URL}adduser/:id
 
 
 //-------------------------PRODUCTOS----------------------/
@@ -154,7 +158,7 @@ patch.${URL}category/
     "state": ""
 }
 
-Revisir todos los materiales 
+Revisar todos los materiales 
 get.${URL}category/admin
 
 
@@ -168,7 +172,7 @@ stado por body
 
 
 Crear SubCategory  (PASAR POR BODY OBJETO)
-post.${URL}category/
+post.${URL}subcategory/
 {
     "name": "cualquiercosa",
 }

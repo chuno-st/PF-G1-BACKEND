@@ -14,6 +14,17 @@ const getUser = async (req,res) => {
     }
 }
 
+const getUserById = async (req,res) => {
+    const {id} = req.params
+    try {
+        const users = await User.findByPk(id)
+
+        res.json(users)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
 const addUser = async (req, res) => {
     const { id, userName, email, picture } = req.body
     try {
@@ -89,6 +100,7 @@ const updateUserAdmin = async (req, res) =>{
 
 module.exports = {
     getUser,
+    getUserById,
     addUser,
     checkRole,
     updateUser,
