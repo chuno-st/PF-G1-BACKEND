@@ -174,14 +174,14 @@ post.${URL}category/
 }
 
 Modificar SubCategory (PASAR POR BODY OBJETO)
-patch.${URL}category/
+patch.${URL}subcategory/
 {
     "id":9,
     "name":"Lentes"
     "state": ""
 }
 
-Revisir todos las subCategory 
+Revisar todas las subCategory 
 get.${URL}subcategory/admin
 
 
