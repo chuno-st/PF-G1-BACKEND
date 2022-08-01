@@ -40,7 +40,7 @@ const paymentMP = async (req, res) => {
     }/*
     shipments: {
     receiver_address: {
-      
+    
     }
   } */
   }
