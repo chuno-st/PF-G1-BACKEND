@@ -33,11 +33,11 @@ const payProduct = async (req, res) => {
 
     let infoItems = payment.data.additional_info.items
 
-    let updateStock = infoItems.map(async item => {
-      let id = item.id;
-      let stock = item.quantity;
+    let updateStock = await infoItems.map(async item => {
+      let id = await item.id;
+      let stock = await item.quantity;
       let product = await Product.findByPk(id);
-      let actualStock = product.stock;
+      let actualStock = await product.stock;
       let newStock = await Product.update({
         stock: actualStock - stock
       },{
