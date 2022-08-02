@@ -20,7 +20,7 @@ const payProduct = async (req, res) => {
 
     const findUser = await User.findByPk(sub)
 
-    findUser.createSale({
+    await findUser.createSale({
       id: payment.data.id,
       status: payment.data.status,
       monto: payment.data.transaction_amount,
