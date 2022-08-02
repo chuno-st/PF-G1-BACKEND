@@ -15,7 +15,7 @@ const payProduct = async (req, res) => {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
       }
     });
-
+    console.log(payment.data.metadata)
     const sub = payment.data.metadata.sub
 
     const findUser = await User.findByPk(sub)

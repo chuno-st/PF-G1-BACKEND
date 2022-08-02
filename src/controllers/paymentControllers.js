@@ -7,7 +7,7 @@ const deploy_backurl = process.env.DEPLOY_BACK_URL;
 
 const paymentMP = async (req, res) => {
 
-  //const { id } = req.query
+  const { id } = req.query
   let items = req.body
   let aux = items[0]
   const itemsMapeados = aux.map(item => ({
@@ -20,9 +20,29 @@ const paymentMP = async (req, res) => {
     unit_price: item.price
   }))
 
-  //const user = await User.findByPk(id)
-/*{"id":1165072510,"nickname":"TESTMYCQYJIS","password":"qatest9956","site_status"
-:"active","email":"test_user_99523462@testuser.com"} */
+  const user = await User.findByPk(id)
+
+  const payerUser = {
+    name: user.userName,
+    surname: user.userName,
+    phone: {
+      number: user.telefono
+    },
+    identification: {
+      type: "DNI",
+      number: user.dni
+    },
+    address: {
+      street_name: user.calle,
+      street_number: user.direccion,
+      zip_code: user.codigo_postal
+    }/*
+    shipments: {
+    receiver_address: {
+    
+    }
+  } */
+  }
   const payerMP = {
     name: "TESTMYCQYJIS",
     surname: "TESTMYCQYJIS",
@@ -38,14 +58,8 @@ const paymentMP = async (req, res) => {
       street_name: "qatest9956",
       street_number: "qatest9956",
       zip_code: "qatest9956"
-    }/*,
-    shipments: {
-    receiver_address: {
-    
     }
-  } */
   }
-
   try {
     const url = "https://api.mercadopago.com/checkout/preferences";
 
@@ -58,7 +72,7 @@ const paymentMP = async (req, res) => {
         pending: `${deploy_fronturl}`,
         success: `${deploy_fronturl}`
       },
-      metadata: {sub: "google-oauth2|105534539959624378835", email: "ferreyralautaro69@gmail.com"}
+      metadata: {sub: user.id, email: user.email, payerUser}
     };
 
     const payment = await axios.post(url, body, {
