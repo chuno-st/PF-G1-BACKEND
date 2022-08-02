@@ -85,6 +85,10 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
        },
+       roles:{
+        type: DataTypes.STRING,
+        defaultValue: "User",
+       },
        block:{
         type: DataTypes.BOOLEAN,
         defaultValue: false,
