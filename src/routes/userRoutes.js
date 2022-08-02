@@ -6,8 +6,8 @@ const router = Router();
 router.get('/', getUser);
 router.post('/', addUser);
 router.put('/' , updateUser);
+router.get('/checkrole', checkRole);
 router.get('/:id', getUserById);
 router.patch('/admin' , updateUserAdmin);
-router.get('/checkrole', checkRole);
 
 module.exports = router;
