@@ -16,21 +16,21 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-     /*  name: {
+      name: {
         type: DataTypes.STRING,
         allowNull: true
       },
       lastName: {
         type: DataTypes.STRING,
         allowNull: true
-      }, */
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false
       },
       picture: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       isAdmin: {
         type: DataTypes.BOOLEAN,
@@ -84,6 +84,10 @@ module.exports = (sequelize) => {
       state:{
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+       },
+       block:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
        }
     }, { timestamps: true });
   };
