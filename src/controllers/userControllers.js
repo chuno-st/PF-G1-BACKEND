@@ -107,6 +107,17 @@ const updateUserAdmin = async (req, res) =>{
     }
 }
 
+const checkRoleUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const userRole = await User.findByPk(id)
+
+
+        res.json(userRole.roles)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
 module.exports = {
     getUser,
     getUserById,
@@ -114,4 +125,5 @@ module.exports = {
     checkRole,
     updateUser,
     updateUserAdmin,
+    checkRoleUser
 }

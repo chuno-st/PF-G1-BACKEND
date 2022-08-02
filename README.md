@@ -44,6 +44,10 @@ GET USER BY ID - Traer Usuario por ID (pasar id "sub" por params)
 get.${URL}adduser/:id
 
 
+GET ROLES USER BY ID - Pasar id por params para recibir string con role del usuario
+get.${URL}adduser/checkrole/user/:id
+
+
 //-------------------------PRODUCTOS----------------------/
 
 
