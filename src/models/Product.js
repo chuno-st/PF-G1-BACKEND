@@ -18,7 +18,6 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
 
-      /* ficha tenica */
       description: {
         type: DataTypes.TEXT,
         allowNull: false,

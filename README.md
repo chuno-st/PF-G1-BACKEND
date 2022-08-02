@@ -37,6 +37,13 @@ Traer productos por query
 ${URL}product/allfilter?category_id=${int}&subCategory_id=${str}&material_id=${str}&name=${str}&max=${str}&min=${str}
 
 
+//-------------------------USER----------------------/
+
+
+GET USER BY ID - Traer Usuario por ID (pasar id "sub" por params)
+get.${URL}adduser/:id
+
+
 //-------------------------PRODUCTOS----------------------/
 
 
@@ -71,7 +78,7 @@ state: ""
 }
 
 traer todos los productos CON O SIN FILTRADOS
-get.{URL}/product/admin TODOS VALORES POR QUERY
+get.{URL}product/admin TODOS VALORES POR QUERY
 {
     name: "",
     category_id: "",
@@ -81,7 +88,7 @@ get.{URL}/product/admin TODOS VALORES POR QUERY
     min: ""
 }
 
-get.{URL}/product/admin/:id (product)
+get.{URL}product/admin/:id (product)
 
 Eliminar Producto (PASAR POR PARAMS ID
 delete.${URL}product/:id
@@ -100,6 +107,7 @@ post.${URL}product/addreview
 
 
 //-------------------------MATERIAL----------------------/
+
 
 Crear Material  (PASAR POR BODY OBJETO)
 post.${URL}material/
@@ -132,7 +140,9 @@ delete.${URL}material/id=${id_producto}?state=${true o false}
 id por params
 stado por body
 
+
 //---------------------------CATEGORY------------------------/
+
 
 Crear Category  (PASAR POR BODY OBJETO)
 post.${URL}category/
@@ -148,7 +158,7 @@ patch.${URL}category/
     "state": ""
 }
 
-Revisir todos los materiales 
+Revisar todos los materiales 
 get.${URL}category/admin
 
 
@@ -160,21 +170,22 @@ stado por body
 
 //-------------------------SUB-CATEGORY----------------------/
 
+
 Crear SubCategory  (PASAR POR BODY OBJETO)
-post.${URL}category/
+post.${URL}subcategory/
 {
     "name": "cualquiercosa",
 }
 
 Modificar SubCategory (PASAR POR BODY OBJETO)
-patch.${URL}category/
+patch.${URL}subcategory/
 {
     "id":9,
     "name":"Lentes"
     "state": ""
 }
 
-Revisir todos las subCategory 
+Revisar todas las subCategory 
 get.${URL}subcategory/admin
 
 
@@ -183,7 +194,9 @@ delete.${URL}subcategory/id=${id_producto}?state=${true o false}
 id por params
 stado por body
 
+
 //-------------------------USER_FAVS----------------------/TODO USER
+
 
 Agregar Favorito  (PASAR POR BODY PRODUCTO Y POR PARAMS PASAR EL ID DEL USUARIO)
 post.${URL}favs/:id
@@ -209,6 +222,7 @@ post.${URL}favs/checkfav/:id
 
 //-------------------------USER_ADMIN----------------------/
 
+
 GET ALL USER 
 get.${URL}adduser
 
@@ -231,12 +245,44 @@ put.${URL}adduser
 }
 
 Modificar isAdmin del User (PASAR POR BODY EL ID DEL USUARIO Y EL BOOLEANO NUEVO DE ISADMIN)
-put.${URL}adduser/admin/
+patch.${URL}adduser/admin/
 {
     "id":"google-oauth2|1.-.-.-.-.-.-.-5",
     "isAdmin": true
 }
 
+
+//------------------------- SALES ----------------------/
+
+
+GET ALL SALES
+get.${URL}sales
+
+Modificar Status de la Compra (PASAR POR BODY EL ID DE LA COMPRA Y EL NUEVO STATUS "dispatch" o "ANULED")
+patch.${URL}sales
+{
+    "id":1304403323,
+    "status":"ANULED"
+}
+
+traer todos los productos comprados por el usuario
+get.{URL}sales/user/:id
+
+
+Filter x Status (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/order?order=DESC
+
+
+Filter x Order Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/status?status=approved
+
+
+Filter x Order Date Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/orderDate?orderDate=ASC
+
+
+Filter x Order Range Date Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/rangeDate?desde=2022-07-31&hasta=2022-08-02
 
 
 ------------------------------------------------------------------------------------

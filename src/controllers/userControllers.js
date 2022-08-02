@@ -14,6 +14,17 @@ const getUser = async (req,res) => {
     }
 }
 
+const getUserById = async (req,res) => {
+    const {id} = req.params
+    try {
+        const users = await User.findByPk(id)
+
+        res.json(users)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
 const addUser = async (req, res) => {
     const { id, userName, email, picture } = req.body
     try {
@@ -72,14 +83,23 @@ const updateUser = async (req, res) => {
 }
 
 const updateUserAdmin = async (req, res) =>{
-    const {id, isAdmin} = req.body
+    const {id, isAdmin, roles} = req.body
     try {
-        const updateIsAdmin = await User.update({isAdmin:isAdmin}, {
-             where: {
-                id: id
-            }
-        })
-        res.json(updateIsAdmin)
+        if(isAdmin == true || isAdmin == false){
+            const updateIsAdmin = await User.update({isAdmin:isAdmin}, {
+                 where: {
+                    id: id
+                }
+            })
+            res.json(updateIsAdmin)
+        }else if(roles){
+            const updateIsAdmin = await User.update({roles:roles}, {
+                where: {
+                   id: id
+               }
+           })
+           res.json(updateIsAdmin)
+        }
 
     } catch (error) {
         return res.status(500).json({ message: error.message })
@@ -87,13 +107,11 @@ const updateUserAdmin = async (req, res) =>{
     }
 }
 
-
-
-
 module.exports = {
     getUser,
+    getUserById,
     addUser,
     checkRole,
     updateUser,
-    updateUserAdmin
+    updateUserAdmin,
 }

@@ -22,10 +22,9 @@ const paymentMP = async (req, res) => {
 
   const user = await User.findByPk(id)
 
-  const payerMP = {
+  const payerUser = {
     name: user.userName,
     surname: user.userName,
-    email: user.email,
     phone: {
       number: user.telefono
     },
@@ -37,9 +36,30 @@ const paymentMP = async (req, res) => {
       street_name: user.calle,
       street_number: user.direccion,
       zip_code: user.codigo_postal
+    }/*
+    shipments: {
+    receiver_address: {
+    
+    }
+  } */
+  }
+  const payerMP = {
+    name: "TESTMYCQYJIS",
+    surname: "TESTMYCQYJIS",
+    email: "test_user_99523462@testuser.com",
+    phone: {
+      number: "1165072510"
+    },
+    identification: {
+      type: "DNI",
+      number: "1165072510"
+    },
+    address: {
+      street_name: "qatest9956",
+      street_number: "qatest9956",
+      zip_code: "qatest9956"
     }
   }
-
   try {
     const url = "https://api.mercadopago.com/checkout/preferences";
 
@@ -52,7 +72,7 @@ const paymentMP = async (req, res) => {
         pending: `${deploy_fronturl}`,
         success: `${deploy_fronturl}`
       },
-      metadata: {sub: user.id, email: user.email}
+      metadata: {sub: user.id, email: user.email, payerUser}
     };
 
     const payment = await axios.post(url, body, {
