@@ -37,7 +37,11 @@ Traer productos por query
 ${URL}product/allfilter?category_id=${int}&subCategory_id=${str}&material_id=${str}&name=${str}&max=${str}&min=${str}
 
 
+//-------------------------USER----------------------/
 
+
+GET USER BY ID - Traer Usuario por ID (pasar id "sub" por params)
+get.${URL}adduser/:id
 
 
 //-------------------------PRODUCTOS----------------------/
@@ -154,7 +158,7 @@ patch.${URL}category/
     "state": ""
 }
 
-Revisir todos los materiales 
+Revisar todos los materiales 
 get.${URL}category/admin
 
 
@@ -168,7 +172,7 @@ stado por body
 
 
 Crear SubCategory  (PASAR POR BODY OBJETO)
-post.${URL}category/
+post.${URL}subcategory/
 {
     "name": "cualquiercosa",
 }
@@ -261,14 +265,24 @@ patch.${URL}sales
     "status":"ANULED"
 }
 
-
 traer todos los productos comprados por el usuario
 get.{URL}sales/user/:id
 
 
+Filter x Status (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/order?order=DESC
 
 
+Filter x Order Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/status?status=approved
 
+
+Filter x Order Date Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/orderDate?orderDate=ASC
+
+
+Filter x Order Range Date Sales (PASAR DATOS POR QUERY)
+get.{URL}sales/filter/rangeDate?desde=2022-07-31&hasta=2022-08-02
 
 
 ------------------------------------------------------------------------------------
