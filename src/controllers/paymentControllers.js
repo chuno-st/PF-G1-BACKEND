@@ -7,7 +7,7 @@ const deploy_backurl = process.env.DEPLOY_BACK_URL;
 
 const paymentMP = async (req, res) => {
 
-  const { id } = req.query
+  //const { id } = req.query
   let items = req.body
   let aux = items[0]
   const itemsMapeados = aux.map(item => ({
@@ -20,23 +20,24 @@ const paymentMP = async (req, res) => {
     unit_price: item.price
   }))
 
-  const user = await User.findByPk(id)
-
+  //const user = await User.findByPk(id)
+/*{"id":1165072510,"nickname":"TESTMYCQYJIS","password":"qatest9956","site_status"
+:"active","email":"test_user_99523462@testuser.com"} */
   const payerMP = {
-    name: user.userName,
-    surname: user.userName,
-    email: user.email,
+    name: "TESTMYCQYJIS",
+    surname: "TESTMYCQYJIS",
+    email: "test_user_99523462@testuser.com",
     phone: {
-      number: user.telefono
+      number: "1165072510"
     },
     identification: {
       type: "DNI",
-      number: user.dni
+      number: "1165072510"
     },
     address: {
-      street_name: user.calle,
-      street_number: user.direccion,
-      zip_code: user.codigo_postal
+      street_name: "qatest9956",
+      street_number: "qatest9956",
+      zip_code: "qatest9956"
     }/*,
     shipments: {
     receiver_address: {
@@ -57,7 +58,7 @@ const paymentMP = async (req, res) => {
         pending: `${deploy_fronturl}`,
         success: `${deploy_fronturl}`
       },
-      metadata: {sub: user.id, email: user.email}
+      metadata: {sub: "google-oauth2|105534539959624378835", email: "ferreyralautaro69@gmail.com"}
     };
 
     const payment = await axios.post(url, body, {
