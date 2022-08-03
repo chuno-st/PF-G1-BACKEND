@@ -59,10 +59,10 @@ const updateStatus = async (req, res) => {
                 let id = await elem.id;
                 let findProduct = await Product.findByPk(id)
                 let actualStock = await findProduct.stock
-                stock = parseInt(stock)
-                actualStock = parseInt(actualStock)
+                // stock = parseInt(stock)
+                // actualStock = parseInt(actualStock)
                 let updateProduct = await Product.update({
-                    stock: stock + actualStock
+                    stock: actualStock + stock
                 },{
                     where: {
                         product_id: id
