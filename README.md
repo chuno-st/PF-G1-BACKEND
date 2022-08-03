@@ -49,7 +49,7 @@ get.${URL}adduser/checkrole/user/:id
 
 
 GET PRODUCTS SALES BY USER
-get.adduser/usersale/:id
+get.${URL}adduser/usersale/:id
 
 //-------------------------PRODUCTOS----------------------/
 
