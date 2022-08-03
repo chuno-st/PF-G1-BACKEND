@@ -1,4 +1,4 @@
-const { User, Product } = require('../db')
+const { User, Product, Sale } = require('../db')
 const axios = require("axios");
 
 const getUser = async (req,res) => {
@@ -12,6 +12,32 @@ const getUser = async (req,res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
+}
+
+const getSaleProduct = async (req, res) => {
+    const { id } = req.params
+    try {
+        const product = await User.findByPk(id,{
+            include: Sale
+        })
+        let productSales = await product.Sales
+
+        let product_id = []
+        let productMap = await productSales.map(async e => {
+            product_id = product_id.concat(e.dataValues.items)
+        })
+
+        const aux = product_id.map(e=>{
+            return e.id
+        })
+
+        let productosComprados = [...new Set(aux)]
+        res.json(productosComprados)
+
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+
 }
 
 const getUserById = async (req,res) => {
@@ -119,6 +145,7 @@ const checkRoleUser = async (req, res) => {
     }
 }
 module.exports = {
+    getSaleProduct,
     getUser,
     getUserById,
     addUser,
