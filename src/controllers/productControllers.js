@@ -98,6 +98,12 @@ const getAllFilteredAdmin = async (req, res) => {
         }
     }else{
         const allProducts = await Product.findAll({
+            where: {
+                [Op.and]:[
+                    newObj,
+                    {state: true}
+                ]
+            },
             include: Review
         })
         res.status(200).json(allProducts)}
