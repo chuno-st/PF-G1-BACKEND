@@ -12,6 +12,7 @@ const borrandoString = (obj) => {
     if(newObj.price == ""){delete  newObj.price }
     if(newObj.hardness == ""){delete  newObj.hardness }
     if(newObj.purity == ""){delete  newObj.purity }
+    // if(typeof newObj.subCategory_id === 'string'){newObj.subCategory_id = parseInt(newObj.subCategory_id)}
 
     return newObj
 

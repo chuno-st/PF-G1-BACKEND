@@ -6,6 +6,7 @@ const {borrandoString} = require('../Utils/Utils')
 const getAllFiltered = async (req, res) => {
     let obj = req.query
     let newObj = await borrandoString(obj)
+    console.log(newObj)
     let max = newObj.max
     let min = newObj.min
     delete  newObj.max
@@ -47,9 +48,10 @@ const getAllFiltered = async (req, res) => {
         }
     }else{
         const allProducts = await Product.findAll({
-            where: {
-                state: true
-            },
+            where:{[Op.and]: [
+                newObj,
+                {state: true}
+              ]},
             include: Review
         })
         res.status(200).json(allProducts)}
