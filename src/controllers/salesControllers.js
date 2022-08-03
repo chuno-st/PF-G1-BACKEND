@@ -1,6 +1,7 @@
-const { Sale, User } = require('../db')
+const { Sale, User, Product } = require('../db')
 const {Op} = require('sequelize')
 const { dispatchedEmail, anuledEmail } = require('../mailer/mailer');
+const { payProduct } = require('./webHooksControllers');
 
 
 
@@ -49,6 +50,24 @@ const updateStatus = async (req, res) => {
                     id: body.id
                 },
             })
+
+            const findSale = await Sale.findByPk(body.id)
+
+            let updateStock = await findSale.map(async elem => {
+                let stock = await elem.stock;
+                let id = await elem.id;
+                let findProduct = await Product.findByPk(id)
+                let actualStock = await findProduct.stock
+                let updateProduct = await Product.update({
+                    stock: stock + actualStock
+                },{
+                    where: {
+                        product_id: id
+                    }
+                })
+            })
+
+
             anuledEmail(sale.dataValues.Users[0].email)
             res.json(updatedStatus)
         }
