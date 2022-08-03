@@ -54,7 +54,7 @@ const updateStatus = async (req, res) => {
             const findSale = await Sale.findByPk(body.id)
 
             let updateStock = await findSale.map(async elem => {
-                let stock = await elem.stock;
+                let stock = await elem.quantity;
                 let id = await elem.id;
                 let findProduct = await Product.findByPk(id)
                 let actualStock = await findProduct.stock
