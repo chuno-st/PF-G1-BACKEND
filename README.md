@@ -48,6 +48,9 @@ GET ROLES USER BY ID - Pasar id por params para recibir string con role del usua
 get.${URL}adduser/checkrole/user/:id
 
 
+GET PRODUCTS SALES BY USER
+get.adduser/usersale/:id
+
 //-------------------------PRODUCTOS----------------------/
 
 
