@@ -397,6 +397,9 @@ const updateProduct = async (req, res) => {
     
 
     try {
+        if(newObj.stock==0){
+            newObj.state = false
+        }
         const updateProduct = await Product.update(newObj,{
             where:{
                 product_id: newObj.product_id
