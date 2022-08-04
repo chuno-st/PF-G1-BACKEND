@@ -18,6 +18,8 @@ ${URL}product?name=${str}
 Trae producto por ID, sino trae to
 ${URL}product/{id}
 
+
+
 filtra por subcategory y rango de precio si faltan parametros devuelve todo
 ${URL}product/subCategory?subcategory=${int}&max=${int}&min=${int}
 
