@@ -394,8 +394,12 @@ const updateProduct = async (req, res) => {
     let body = req.body
     console.log(body)
     let newObj = await borrandoString(body)
+    
 
     try {
+        if(newObj.stock==0){
+            newObj.state = false
+        }
         const updateProduct = await Product.update(newObj,{
             where:{
                 product_id: newObj.product_id
