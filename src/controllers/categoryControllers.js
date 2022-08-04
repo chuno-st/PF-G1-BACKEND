@@ -31,7 +31,7 @@ const createCategory = async (req, res) => {
                 name: name
             }
         })
-        if (!findedCat) {
+        if (!findedCat || findedCat == null) {
             const createdCat = await Category.create({
                 name
             })
